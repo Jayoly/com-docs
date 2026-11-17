@@ -1,0 +1,84 @@
+---
+title: "负载均衡"
+icon: "scale-balanced"
+---
+
+如果您在不同的实例中启动了服务，并且使用Nginx对这些服务做负载均衡，那么可能会发现如果直接使用Nginx Upstream进行代理会出现访问404。原因如下：
+由于AutoDL需要根据用户请求Header中的Host进行路由到不同的实例（可以发现不同实例的URL地址域名不同，正常情况发起请求的域名地址会被设置到Header中的Host变量中）,当使用Nginx对多个后端服务进行代理时，用户前端请求的地址是Nginx所在服务器的地址，而在Nginx转发给AutoDL的服务时无法重新设置Header中的Host变量为AutoDL的域名导致无法正确访问。下面将介绍两种方法完成正确的代理：
+1. 比较Trick的方法，适合需要代理的服务数量少的场景
+2. 借助Lua脚本的方法，通用但是更加复杂
+
+## 更Trick的方法
+```nginx
+server {
+  listen      8001 default_server;
+  server_name a.example.com;
+  location / {
+    proxy_set_header Host a.cqa1.seetacloud.com:8443;
+    proxy_pass       https://a.cqa1.seetacloud.com:8443;
+  }
+}
+
+server {
+  listen      8002 default_server;
+  server_name b.example.com;
+  location / {
+    proxy_set_header Host b.cqa1.seetacloud.com:8443;
+    proxy_pass       https://b.cqa1.seetacloud.com:8443;
+  }
+}
+
+upstream main_balancer {
+  server 127.0.0.1:8001;
+  server 127.0.0.1:8002;
+}
+
+server {
+  listen      80;
+  server_name example.com;
+  location / {
+    proxy_pass http://main_balancer;
+  }
+}
+```
+
+
+
+## 借助Lua脚本的方法
+Nginx配置
+```nginx
+server {
+  listen      8000 default_server;
+  server_name web1.example.com;
+  location / {
+    set $proxy_pass_target "";
+    set_by_lua_file $proxy_pass_target /usr/local/openresty/nginx/lua/xxxxxx.lua;
+    if ($proxy_pass_target = ""){
+        return 404;
+    }
+    proxy_set_header Host $proxy_pass_target;
+    proxy_pass       https://$proxy_pass_target;
+  }
+}
+```
+
+Lua脚本
+```lua
+local servers = {
+    ["0"] = "a.cqa1.seetacloud.com:8443",
+    ["1"] = "b.cqa1.seetacloud.com:8443",
+    ["2"] = "c.cqa1.seetacloud.com:8443",
+}
+local path = ngx.var.uri
+local target = ""
+
+if path == "/api/v1" then
+    target = "api_v1.example.com"
+elseif path == "/api/v2" then
+    target = "api_v2.example.com"
+else
+    target = "default.api.example.com"
+end
+
+return target
+```

@@ -1,0 +1,16 @@
+---
+title: "OpenCL"
+icon: "microchip"
+---
+
+如果您的程序使用到了OpenCL，并且在安装OpenCL后无法正常使用，可按以下方式进行处理：  
+首先检查nvidia-opencl动态链接库是否存在：
+```
+ldconfig -p | grep nvidia-opencl
+```
+有输出则存在（如果不存在则系统环境存在问题，请联系客服），然后执行以下命令：
+```
+mkdir -p /etc/OpenCL/vendors
+echo "libnvidia-opencl.so.1" > /etc/OpenCL/vendors/nvidia.icd
+```
+最后再次检查是否可以正常使用OpenCL，如仍然无法使用请联系客服

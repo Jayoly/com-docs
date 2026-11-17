@@ -1,0 +1,111 @@
+---
+title: "华为昇腾NPU"
+icon: "microchip"
+---
+
+> 注意当前AutoDL上的华为【昇腾910B2x鲲鹏920】 搭载的为ARM系统，因此以前您在X86 CPU机器上构建的镜像无法在此机器上使用
+
+### 使用PyTorch
+
+首先建议选择我们已经做好的基础镜像中PyTorch框架的镜像创建实例，然后对于基于NVIDIA的PyTorch代码，需要进行简单几步改造即可在华为910B上运行，请看下方示例：
+
+```python
+# NVIDIA PyTorch 代码
+import torch
+
+x = torch.randn(10000, 10000).cuda()
+y = torch.randn(10000, 10000).cuda()
+for _ in range(1000):
+    z = x.mm(y)
+print(z)
+
+
+# 改造为华为910B上可运行的代码
+# 第一步：import torch后，立即import torch_npu
+# 第二步：cuda()函数换为npu()
+import torch
+import torch_npu
+
+x = torch.randn(10000, 10000).npu()
+y = torch.randn(10000, 10000).npu()
+for _ in range(1000):
+    z = x.mm(y)
+print(z)
+```
+
+**更加复杂的例子**
+
+以下是**NVIDIA** PyTorch ResNet网络使用MNIST数据集训练的代码
+
+```bash
+# 下载代码
+wget https://autodl-public.ks3-cn-beijing.ksyuncs.com/npu_chips/huawei/dp_res18_ascend.py
+
+# 执行代码训练，自动会下载MNIST数据集
+python dp_res18.py
+```
+
+以下是基于上面代码改造后的可使用**华为910B**的代码
+
+```bash
+# 下载代码
+wget https://autodl-public.ks3-cn-beijing.ksyuncs.com/debug/dp_res18_ascend.py
+
+# 执行代码训练，自动会下载MNIST数据集
+python dp_res18_ascend.py
+```
+
+两者代码的差异：
+
+```bash
+# diff dp_res18.py dp_res18_ascend.py
+8a9
+> import torch_npu
+29c30,31
+< device = 'cuda' if torch.cuda.is_available() else 'cpu'
+---
+> device = 'npu' if torch.npu.is_available() else 'cpu'
+> print("Detect device:", device)
+
+
+# 从diff两个文件的结果可以看出，除多了import torch_npu和替换了cuda→npu，其他均相同
+```
+
+### 昇腾NPU使用率监控
+
+**查看NPU使用率、显存使用量等**
+
+使用`npu-smi info`命令，其中AICore(%)是GPU的使用率
+
+```bash
+# npu-smi info
++------------------------------------------------------------------------------------------------+
+| npu-smi 23.0.3                   Version: 23.0.3                                               |
++---------------------------+---------------+----------------------------------------------------+
+| NPU   Name                | Health        | Power(W)    Temp(C)           Hugepages-Usage(page)|
+| Chip                      | Bus-Id        | AICore(%)   Memory-Usage(MB)  HBM-Usage(MB)        |
++===========================+===============+====================================================+
+| 6     910B2               | OK            | 98.7        46                0    / 0             |
+| 0                         | 0000:82:00.0  | 0           0    / 0          3330 / 65536         |
++===========================+===============+====================================================+
++---------------------------+---------------+----------------------------------------------------+
+| NPU     Chip              | Process id    | Process name             | Process memory(MB)      |
++===========================+===============+====================================================+
+| No running processes found in NPU 6                                                            |
++===========================+===============+====================================================+
+```
+
+**实时监控NPU使用信息**
+
+使用`npu-smi info watch`命令
+
+```bash
+# npu-smi info watch
+NpuID(Idx)  ChipId(Idx) Pwr(W)      Temp(C)     AI Core(%)  AI Cpu(%)   Ctrl Cpu(%) Memory(%)   Memory BW(%)
+6           0           98.0        44          0           0           0           5           0
+6           0           97.9        44          0           0           0           5           0
+```
+
+### 注意事项
+
+在使用华为的NPU时，和挂载NVIDIA的GPU设备到容器实例上有一个重要差异，比如宿主机上有8块GPU，租用2块GPU，那么这2块GPU无论是这8卡中的哪2张卡，在用户实例中看到的INDEX序号都是0和1（均从0开始），而使用华为NPU时，容器中显示的卡的INDEX和宿主机上是对应的（不一定是0和1），**但是**在代码中使用华为NPU的卡时，INDEX都按从0自增来确定是哪张NPU，也就是租了N张卡每张卡的序号为0,1,2,...,N-1，**不要看npu-smi info中显示的NPU INDEX**

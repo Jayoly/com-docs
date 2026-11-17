@@ -1,0 +1,19 @@
+---
+title: "Python3.X"
+icon: "code"
+---
+
+平台内置的镜像的Python版本固定，比如Python3.7、Python3.8、Python3.10、Python3.12，如果需要使用Python3.6的场景（比如TensorFlow1.14必须3.6/3.7），那么可以使用Miniconda创建其他版本的Python虚拟环境。
+
+```
+# 构建一个虚拟环境名为：my-env，Python版本为3.7
+conda create -n my-env python=3.7    
+
+# 更新bashrc中的环境变量
+conda init bash && source /root/.bashrc
+# 切换到创建的虚拟环境：my-env
+conda activate my-env
+
+# 验证
+python
+```

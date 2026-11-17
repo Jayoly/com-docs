@@ -1,0 +1,18 @@
+---
+title: "SD作图内存泄露"
+icon: "bug"
+---
+
+如果发现在使用AUTOMATIC1111项目的SD WebUI时，出现作图持续内存增长，或切换模型导致内存增长，那么可以参考以下方法解决
+```
+# 先安装依赖
+apt install libgoogle-perftools-dev
+
+# 在启动webui之前，先添加环境变量。以下libtcmalloc.so.4文件可以使用ldconfig -p | grep libtcmalloc.so.4来确认是否存在
+export LD_PRELOAD=libtcmalloc.so.4
+
+# 执行export添加环变量后再启动webui（启动命令以您的为主，以下仅示例）
+python launch.py --port 6006
+```
+
+以上方法来源: [https://github.com/AUTOMATIC1111/stable-diffusion-webui/discussions/6722](https://github.com/AUTOMATIC1111/stable-diffusion-webui/discussions/6722)

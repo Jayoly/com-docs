@@ -1,0 +1,61 @@
+---
+title: "概要"
+icon: "sliders"
+---
+
+> 平台所有镜像的系统版本为Ubuntu，多数为Ubuntu 18.04 ，少数Ubuntu 20.04
+
+平台已经内置了以下框架及版本的镜像，使用该镜像的实例就会自带相应框架软件。如果以下自带的框架版本或Python版本不满足需求，请继续看下方配置其他版本的框架或Python方法。
+
+| 框架         | 框架版本 | Python版本 | CUDA版本 |
+| ------------ | -------- | ---------- | -------- |
+| PyTorch      | 1.1.0    | 3.7        | 10.0     |
+| PyTorch      | 1.5.1    | 3.8        | 10.1     |
+| PyTorch      | 1.6.0    | 3.8        | 10.1     |
+| PyTorch      | 1.7.0    | 3.8        | 11.0     |
+| PyTorch      | 1.8.1    | 3.8        | 11.1     |
+| PyTorch      | 1.9.0    | 3.8        | 11.1     |
+| PyTorch      | 1.10.0   | 3.8        | 11.3     |
+| PyTorch      | 1.11.0   | 3.8        | 11.3     |
+| PyTorch      | 2.0.0    | 3.8        | 11.8     |
+| PyTorch      | 2.1.0    | 3.10       | 12.1     |
+| PyTorch      | 2.1.2    | 3.10       | 11.8     |
+| PyTorch      | 2.3.0    | 3.12       | 12.1     |
+| PyTorch      | 2.5.1    | 3.12       | 12.4     |
+| PyTorch      | 2.7.0    | 3.12       | 12.8     |
+| PyTorch      | 2.8.0    | 3.12       | 12.8     |
+| TensorFlow   | 1.15.5   | 3.8        | 11.4     |
+| TensorFlow   | 2.5.0    | 3.8        | 11.2     |
+| TensorFlow   | 2.9.0    | 3.8        | 11.2     |
+| Miniconda    | conda3   | 3.7        | 9.0      |
+| Miniconda    | conda3   | 3.8        | 10.1     |
+| Miniconda    | conda3   | 3.8        | 10.2     |
+| Miniconda    | conda3   | 3.8        | 11.1     |
+| Miniconda    | conda3   | 3.8        | 11.3     |
+| Miniconda    | conda3   | 3.8        | 11.3(cudagl)|
+| Miniconda    | conda3   | 3.8        | 11.6     |
+| Miniconda    | conda3   | 3.8        | 11.8     |
+| Miniconda    | conda3   | 3.10       | 11.8     |
+| tritonserver | 24.12    | 3.12       | 12.6     |
+| JAX          | 0.3.10   | 3.8        | 11.1     |
+| PaddlePaddle | 2.2.0    | 3.8        | 11.2     |
+| PaddlePaddle | 2.4.0    | 3.8        | 11.2     |
+| TensorRT     | 8.5.1    | 3.8        | 11.8     |
+| TensorRT     | 8.6.1    | 3.8        | 11.8     |
+| Gromacs      | 2022.2   | 3.8        | 11.4     |
+| Gromacs      | 2023.2   | 3.10       | 11.8     |
+
+**安装其他版本的Python**： [参考](/python)
+
+**安装其他版本的CUDA**： [参考](/cuda)
+
+**安装PyTorch**： [参考](https://pytorch.org/get-started/previous-versions/)
+> 使用Torch官方的conda安装命令在国内安装的一般为非cuda版本，而是cpu版本（有bug），因此推荐用pip安装，并且如果使用torch官方pip命令，去掉-f/--index-url参数，这样可以走国内的pip源，速度更快。
+
+**安装TensorFlow**： [参考](https://www.tensorflow.org/install/pip)
+
+**推荐的使用姿势**：
+
+1. 首先平台镜像中有没有您需要的Torch、TensorFlow等框架的相应版本，如果有首选平台内置的镜像。
+2. 如果平台中没有合适的Torch、TensorFlow等框架版本，那么查询自己的框架需要什么CUDA版本，比如PyTorch=1.9.0需要CUDA=11.1，那么可以选择Miniconda/CUDA=11.1的平台镜像，然后在镜像内安装自己需要的框架，免去安装cudatoolkit的麻烦。（平台内置的CUDA均带.h头文件，如有二次编译代码的需求更方便）。
+3. 如果以上条件都不满足，则可随便挑选一个Miniconda镜像，在开机后自行安装相关框架、CUDA、甚至其他版本的Python。

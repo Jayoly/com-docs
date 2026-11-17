@@ -1,0 +1,107 @@
+---
+title: "摩尔线程GPU"
+icon: "microchip"
+---
+
+### 使用PyTorch
+
+首先建议选择我们已经做好的基础镜像中PyTorch框架的镜像创建实例，然后对于基于NVIDIA的PyTorch代码，需要进行简单几步改造即可在摩尔线程GPU上运行，请看下方示例：
+
+```python
+# NVIDIA PyTorch 代码
+import torch
+
+x = torch.randn(10000, 10000).cuda()
+y = torch.randn(10000, 10000).cuda()
+for _ in range(1000):
+    z = x.mm(y)
+print(z)
+
+
+# 改造为摩尔线程GPU上可运行的代码
+# 第一步：import torch后，立即import torch_musa（musa为摩尔的'cuda'）
+# 第二步：cuda()函数换为musa()
+import torch
+import torch_musa
+
+x = torch.randn(10000, 10000).musa()
+y = torch.randn(10000, 10000).musa()
+for _ in range(1000):
+    z = x.mm(y)
+print(z)
+```
+
+**更加复杂的例子**
+
+以下是**NVIDIA** PyTorch ResNet网络使用MNIST数据集训练的代码
+
+```bash
+# 下载代码
+wget https://autodl-public.ks3-cn-beijing.ksyuncs.com/debug/dp_res18.py
+
+# 执行代码训练，自动会下载MNIST数据集
+python dp_res18.py
+```
+
+以下是基于上面代码改造后的可使用**摩尔线程GPU**的代码
+
+```bash
+# 下载代码
+wget https://autodl-public.ks3-cn-beijing.ksyuncs.com/npu_chips/moore_threads/dp_res18_mt.py
+
+# 执行代码训练，自动会下载MNIST数据集
+python dp_res18_mt.py
+```
+
+两者代码的差异：
+
+```bash
+# diff dp_res18.py dp_res18_mt.py
+8a9
+> import torch_musa
+29c30,31
+< device = 'cuda' if torch.cuda.is_available() else 'cpu'
+---
+> device = 'musa' if torch.musa.is_available() else 'cpu'
+> print("Detect device:", device)
+
+
+# 从diff两个文件的结果可以看出，除多了import torch_musa和替换了cuda→musa，其他均相同
+```
+
+### 摩尔线程GPU使用率监控
+
+**查看GPU使用率、显存使用量等**
+
+使用`mthreads-gmi`命令
+
+```bash
+# mthreads-gmi
+Fri Apr 18 15:41:55 2025
+---------------------------------------------------------------
+    mthreads-gmi:1.14.0          Driver Version:2.7.0
+---------------------------------------------------------------
+ID   Name           |PCIe                |%GPU  Mem
+     Device Type    |Pcie Lane Width     |Temp  MPC Capable
+                                         |      ECC Mode
++-------------------------------------------------------------+
+0    MTT S4000      |00000000:12:00.0    |0%    4MiB(49152MiB)
+     Physical       |16x(16x)            |41C   YES
+                                         |      N/A
+---------------------------------------------------------------
+
+---------------------------------------------------------------
+Processes:
+ID   PID       Process name                         GPU Memory
+                                                         Usage
++-------------------------------------------------------------+
+   No running processes found
+---------------------------------------------------------------
+```
+
+更多算法和模型即将上线CodeWithGPU社区，您也可以访问摩尔线程官方 <a href="https://github.com/MooreThreads/tutorial_on_musa" target="_blank">GitHub模型仓库</a> 获取更多模型！
+
+
+<br />
+<br />
+<br />

@@ -1,72 +1,299 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "AutoDL.com文档中心",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#3760F4",
+    "light": "#6b8bfc",
+    "dark": "#0228b0"
   },
-  "favicon": "/favicon.svg",
+  "icons": {
+    "library": "fontawesome"
+  },
+  "favicon": "/images/favicon.png",
   "navigation": {
-    "pages": [
+    "tabs":[
       {
-        "group": "Getting Started",
+        "tab": "指南",
+        "groups": [
+          {
+            "group": "开始使用",
+            "pages": [
+              "guide/start/index",
+              "guide/start/quick_start",
+              "guide/start/video"
+            ]
+          },
+          {
+            "group": "GPU 选择",
+            "pages": [
+              "guide/gpu-selection/gpu",
+              "guide/gpu-selection/gpu_perf"
+            ]
+          },
+          {
+            "group": "网络",
+            "pages": [
+              "guide/network/network",
+              "guide/network/network_turbo"
+            ]
+          },
+          {
+            "group": "活动与优惠",
+            "pages": [
+              "guide/promotions/coupon",
+              "guide/promotions/cp",
+              "guide/promotions/member",
+              "guide/promotions/student",
+              "guide/promotions/academic-corporation"
+            ]
+          },
+          {
+            "group": "充值与发票",
+            "pages": [
+              "guide/expense/price",
+              "guide/expense/invoice"
+            ]
+          },
+          {
+            "group": "维护与故障",
+            "pages": [
+              "guide/maintenance/maintenance"
+            ]
+          },
+          {
+            "group": "服务协议",
+            "pages": [
+              "guide/agreements/agreements",
+              "guide/agreements/nas_agreements",
+              "guide/agreements/service_agreement",
+              "guide/agreements/real_name_cert",
+              "guide/agreements/privacy_policy",
+              "guide/agreements/anti_mining",
+              "guide/agreements/pay_later_agreements"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "容器实例",
+        "groups": [
+          {
+            "group": "容器配置",
+            "pages": [
+              "instance/configuration/env",
+              "instance/configuration/update_config",
+              "instance/configuration/change_billing_method",
+              "instance/configuration/save_image",
+              "instance/configuration/reset_instance"
+            ]
+          },
+          {
+            "group": "连接方式",
+            "pages": [
+              "instance/connection/jupyterlab",
+              "instance/connection/ssh",
+              "instance/connection/gui",
+              "instance/connection/port"
+            ]
+          },
+          {
+            "group": "数据存储",
+            "pages": [
+              "instance/data-storage/instance_data",
+              "instance/data-storage/netdisk",
+              "instance/data-storage/local_disk",
+              "instance/data-storage/public_data",
+              "instance/data-storage/fs"
+            ]
+          },
+          {
+            "group": "数据传输",
+            "pages": [
+              "instance/data-transmission/scp",
+              "instance/data-transmission/down",
+              "instance/data-transmission/arc"
+            ]
+          },
+          {
+            "group": "任务执行",
+            "pages": [
+              "instance/execution/daemon",
+              "instance/execution/distributed_training"
+            ]
+          },
+          {
+            "group": "迁移实例",
+            "pages": [
+              "instance/migrate/migrate_instance",
+              "instance/migrate/migrate_instance_2"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "容器实例 pro",
         "pages": [
-          "index",
-          "quickstart"
+          "pro/instance_pro",
+          "pro/pro_data"
+        ]
+      },
+      {
+        "tab": "配置环境",
+        "pages": [
+          "environment/base_config",
+          "environment/deps",
+          "environment/image",
+          "environment/python",
+          "environment/cuda",
+          "environment/miniconda"
+        ]
+      },
+      {
+        "tab": "国产芯片",
+        "pages": [
+          "local/huawei_ascend",
+          "local/huawei_mindie",
+          "local/mt_gpu"
+        ]
+      },
+      {
+        "tab": "最佳实践",
+        "groups": [
+          {
+            "group": "团队",
+            "pages": [
+              "best_practices/team/c_user"
+            ]
+          },
+          {
+            "group": "常用工具",
+            "pages": [
+              "best_practices/tools/linux",
+              "best_practices/tools/source",
+              "best_practices/tools/git",
+              "best_practices/tools/tensorboard",
+              "best_practices/tools/huggingface",
+              "best_practices/tools/visdom"
+            ]
+          },
+          {
+            "group": "远程开发",
+            "pages": [
+              "best_practices/remote/filezilla",
+              "best_practices/remote/xshell",
+              "best_practices/remote/vscode",
+              "best_practices/remote/pycharm",
+              "best_practices/remote/ssh_proxy",
+              "best_practices/remote/proxy_in_instance"
+            ]
+          },
+          {
+            "group": "AI 工具",
+            "pages": [
+              "best_practices/ai/gromacs",
+              "best_practices/ai/katago",
+              "best_practices/ai/rstudio",
+              "best_practices/ai/opencl",
+              "best_practices/ai/vulkan",
+              "best_practices/ai/mpi"
+            ]
+          },
+          {
+            "group": "并行与成本",
+            "pages": [
+              "best_practices/parallel/perf",
+              "best_practices/parallel/save_money"
+            ]
+          },
+          {
+            "group": "系统配置",
+            "pages": [
+              "best_practices/system/precision",
+              "best_practices/system/msg"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "弹性部署",
+        "pages": [
+          "elastic_deployment/elastic_deploy",
+          "elastic_deployment/elastic_deploy_practice",
+          "elastic_deployment/elastic_deploy_update_log",
+          "elastic_deployment/metric_monitor"
+        ]
+      },
+      {
+        "tab": "API",
+        "pages": [
+          "api/common_api",
+          "api/instance_pro_api",
+          "api/esd_api_doc"
+        ]
+      },
+      {
+        "tab": "AI 服务器",
+        "pages": [
+          "ai_server/ai_server"
+        ]
+      },
+      {
+        "tab": "常见问题",
+        "pages": [
+          "faq/qa1",
+          "faq/qa2",
+          "faq/qa3",
+          "faq/qa4",
+          "faq/qa5",
+          "faq/qa6",
+          "faq/qa7",
+          "faq/qa"
+        ]
+      },
+      {
+        "tab": "更多页面",
+        "hidden": true,
+        "pages": [
+          "more/about",
+          "more/academic-corporation-talents",
+          "more/lb",
+          "more/nas",
+          "more/projector",
+          "ai_server/ai_server_perf"
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/images/logo/com.png",
+    "dark": "/images/logo/com.png"
   },
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:support@mintlify.com"
+        "label": "联系客服",
+        "href": "https://work.weixin.qq.com/kfid/kfc93f07e4d810f619d"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "label": "官网",
+      "href": "https://www.autodl.com/"
     }
   },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+  "redirects": [
+    {
+      "source": "/quickstart",
+      "destination": "/quick_start"
+    },
+    {
+      "source": "/docs",
+      "destination": "/"
+    },
+    {
+      "source": "/docs/:slug*",
+      "destination": "/:slug*"
     }
-  }
+  ]
 }

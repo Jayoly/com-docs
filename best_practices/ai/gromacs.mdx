@@ -1,0 +1,58 @@
+---
+title: "Gromacs"
+icon: "dna"
+---
+
+Gromacs是用于研究生物分子体系的分子动力学程序包。在AutoDL创建实例选择镜像时使用Gromacs镜像，即可创建带有Gromacs软件包的实例。预置的Gromacs已使用CUDA编译，默认将使用GPU加速计算。
+
+以下Gromacs的测试用例（[用例来源](https://confluence.csuc.cat/display/HPCKB/How+to+run+a+Gromacs+simulation+of+a+protein)）：
+
+```
+# Step.0: 准备
+mkdir test && cd test
+wget https://confluence.csuc.cat/download/attachments/29362353/2n6m.pdb
+
+# Step.1: 生成输入文件。这条命令请单独执行，否则会卡住。提示时选择14: GROMOS96 54a7和1:SPC. 
+gmx pdb2gmx -f 2n6m.pdb -o esculentin.gro -p esculentin.top -ignh
+
+# Step.2: 设置模拟参数
+gmx editconf -f esculentin.gro -o esculenbox.gro -box 5 5 5
+gmx solvate -cp esculenbox.gro -o solvated.gro -p esculentin.top
+
+# Step.3: 配置
+cat > options.mdp << EOF
+integrator        = md
+nsteps            = 50000000
+nstxout            = 50000
+coulombtype        = PME
+fourierspacing    = 0.15
+tcoupl            = v-rescale
+tau-t            = 0.2 0.2
+ref-t            = 298.15 298.15
+tc-grps            = Protein Non-protein
+pcoupl            = berendsen
+compressibility    = 4.5e-5
+tau-p            = 0.2
+ref-p            = 1.0
+EOF
+gmx grompp -f options.mdp -c solvated.gro -p esculentin.top -o esculentin.tpr -maxwarn 100
+
+# Step.4: 运行
+gmx mdrun -s esculentin.tpr
+```
+
+附Gromacs安装脚本：
+
+```
+wget https://ftp.gromacs.org/gromacs/gromacs-2022.2.tar.gz \
+    && tar xfz gromacs-2022.2.tar.gz \
+    && cd gromacs-2022.2 \
+    && mkdir build \
+    && cd build \
+    && /root/miniconda3/bin/cmake .. -DGMX_BUILD_OWN_FFTW=ON -DREGRESSIONTEST_DOWNLOAD=ON -DGMX_GPU=CUDA -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
+    && make -j8 && make check && make install \
+    && cd ../../ && rm -rf gromacs-* \ 
+    && echo "PATH=/usr/local/gromacs/bin/:\$PATH" >> /etc/profile
+```
+
+如果自行编译Gromacs==2022版本请注意不要使用CUDA11.3版本，查看[官方解释](https://manual.gromacs.org/current/user-guide/known-issues.html#unable-to-compile-with-cuda-11-3)

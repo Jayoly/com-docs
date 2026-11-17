@@ -1,0 +1,46 @@
+---
+title: "MPI"
+icon: "network-wired"
+---
+
+> 注意：经测试ubuntu20.04系统可以正常运行，22.04则会出现hang住，请选择ubuntu20.04的镜像。原因未知，如您了解原因欢迎反馈，非常感谢！
+
+### 安装
+
+```bash
+# 注意不要安装和使用openmpi包，该包存在问题
+apt update && apt-get install mpich
+```
+
+### 验证
+
+简单测试：  
+
+```bash
+# 使用mpi执行ls命令，看是否可以输出目录和文件
+mpirun -n 2 ls
+```
+
+编译测试：  
+
+```bash
+# 编写test.c文件，内容为：
+#include <stdio.h>
+#include <mpi.h>
+int main (int argc, char** argv) {
+
+        int size, rank;
+        MPI_Init(&argc, &argv);
+
+        MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+        MPI_Comm_size(MPI_COMM_WORLD, &size);
+        printf("size = %d rank = %d\n", size, rank);
+        MPI_Finalize();
+}
+
+# 编译，将输出a.out可执行文件
+mpicc test.c
+
+# 执行，注意使用绝对路径，因为a.out不在PATH环境变量中，这里测试目录是/root
+mpirun -n 1 /root/a.out
+```

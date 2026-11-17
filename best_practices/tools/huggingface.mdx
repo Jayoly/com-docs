@@ -1,0 +1,16 @@
+---
+title: "HuggingFace"
+icon: "robot"
+---
+
+## 常见问题
+1. HuggingFace下载的模型占用系统盘空间很大，导致系统盘空间不够  
+默认HuggingFace的缓存模型会保存在/root/.cache目录，可以通过以下方式将模型的缓存保存到数据盘，具体方法为：
+```
+终端中执行：
+export HF_HOME=/root/autodl-tmp/cache/
+
+或者Python代码中执行：
+import os
+os.environ['HF_HOME'] = '/root/autodl-tmp/cache/'
+```

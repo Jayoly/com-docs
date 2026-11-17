@@ -1,0 +1,52 @@
+---
+title: "暴露多个服务"
+icon: "tower-broadcast"
+---
+
+目前AutoDL提供的自定义服务仅支持暴露一个端口，如果您需要暴露多个容器内的服务（http服务），那么可采用代理的方式做一层路由转发实现，如使用Nginx转发等，这里提供一种更轻量的方式。
+假设您的容器中有两个服务，分别监听2000和3000端口，这里用Flask进行示例：
+```python
+# 模拟监听2000端口的服务
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/v1/hello')
+def hello():
+    return 'I`m port 2000'
+
+if __name__ == '__main__':
+    app.run(port=2000)
+
+
+# 模拟监听3000端口的服务
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/v2/hello')
+def hello():
+    return 'I`m port 3000'
+
+if __name__ == '__main__':
+    app.run(port=3000)
+```
+下面在6006端口上启动一个路由转发的服务，如果是匹配`/v1/*`的路由就转发给监听2000端口的服务，如果是匹配`/v2/*`的路由就转发给监听3000端口的服务。  
+首先在实例中下载转发服务程序`wget https://autodl-public.ks3-cn-beijing.ksyuncs.com/tool/api-proxy/proxy_in_instance`，然后在这个服务程序文件同目录下编写一个名为`config.yaml`文件，内容为:
+```yaml
+proxies:
+   - host_and_port: http://127.0.0.1:2000  # 要代理到的服务地址
+     route_path: /v1/*                     # 匹配什么路由就转发到此地址
+
+   - host_and_port: http://127.0.0.1:3000  # 可设置多组，转发到不同的host
+     route_path: /v2/*
+```
+然后启动转发服务：
+```bash
+# 如果没下载转发程序，先下载
+wget https://autodl-public.ks3-cn-beijing.ksyuncs.com/tool/api-proxy/proxy_in_instance
+
+# 如果没有添加可执行权限，先添加权限
+chmod +x proxy_in_instance
+
+# 启动
+./proxy_in_instance
+```

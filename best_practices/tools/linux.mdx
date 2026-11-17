@@ -1,0 +1,291 @@
+---
+title: "Linux基础"
+icon: "terminal"
+---
+
+在AutoDL租用实例的系统默认为Linux Ubuntu发行版，因此熟悉使用基本的Linux命令对于训练模型非常有必要。以下为常用必备命令使用介绍：
+
+### 列出文件/文件夹
+
+命令：`ls`  (list)
+
+```
+user@host:/tmp/test_dir# ls    # 列出当前目录下的文件和文件夹
+a.txt  b
+user@host:/tmp/test_dir# ls -l  # 列出文件和文件夹的详细信息：权限，Owner，Group和创建/更新时间
+total 4
+-rw-rw-r-- 1 root root    0 11月  9 10:50 a.txt
+drwxrwxr-x 2 root root 4096 11月  9 10:50 b
+```
+
+### 新建/切换路径
+
+新建命令：`mkdir` (make directory)
+
+切换命令：`cd`  (change working directory)
+
+```
+user@host:/tmp# mkdir test_dir   # 新建一个叫test_dir的路径
+user@host:/tmp# cd test_dir/     # 进入 test_dir 路径
+user@host:/tmp/test_dir#
+```
+
+两种特殊的目录：`..`、`.` 或写作 `../`、`./`，`../`代表上一级目录，`./`代表当前目录。
+
+```
+user@host:/tmp/test_dir# cd ../test_dir/   # 进入上一级目录下的test_dir目录
+user@host:/tmp#
+```
+
+### 查看当前路径
+
+命令：`pwd`  (list)
+
+```
+user@host:~# pwd
+/root/
+user@host:~#
+```
+
+### 重命名、移动文件/文件夹
+
+命令: `mv` （move）
+
+```
+user@host:/tmp# mv test_dir/ test_directory   # 将test_dir目录重命名为test_directory，文件重命名同样适用
+user@host:/tmp# cd test_directory/
+daiauser@hostb@seeta:/tmp/test_directory#
+```
+
+```
+user@host:/tmp/test_directory# mkdir a b     # 创建两个文件夹a和b 
+user@host:/tmp/test_directory# ls
+a  b
+user@host:/tmp/test_directory# mv a b/       # 将a移动到b目录下。如果b目录不存在的话，这条命令相当于将a重命名为b
+user@host:/tmp/test_directory# tree
+.
+└── b
+    └── a
+```
+
+### 拷贝文件/文件夹
+
+命令: `cp` （copy）
+
+参数: `-r` （-r代表递归）
+
+```
+user@host:/tmp/test_directory# mkdir a b     # 创建两个文件夹a和b 
+user@host:/tmp/test_directory# ls
+a  b
+user@host:/tmp/test_directory# cp -r a b       # 将a文件夹拷贝到b文件夹下，-r代表递归拷贝
+user@host:/tmp/test_directory# tree
+.
+└── a
+└── b
+    └── a
+```
+
+### 删除文件/文件夹
+
+命令: `rm` （remove）
+
+参数: `-rf` （-r代表递归，-f代表强制）
+
+```
+user@host:/tmp/test_directory# ls
+a.txt  folder
+user@host:/tmp/test_directory# rm -rf folder   
+user@host:/tmp/test_directory# rm -rf folder/*   # *是通配符号，这样代表folder文件夹下所有文件/文件夹
+```
+
+### 设置环境变量
+
+命令： export 
+
+```
+以常见的两个环境变量：PATH和LD_LIBRARY_PATH为例
+1. PATH
+如果你有自己安装的命令，希望暴露出来直接使用。比如miniconda中的python，如果不加环境变量一般需要写完整的路径：/x/x/x/miniconda3/bin/python，如果希望直接写python就能用到调用conda中的python指令，那么可以：
+export PATH=/x/x/x/miniconda3/bin:$PATH
+先解释上述命令的格式，右侧的路径可以写多个，以:分隔，$PATH表示求PATH变量的值，因为PATH环境变量以前可能已经有值，需要保留那些值不影响其他命令的使用，其次当输入了python命令时，会从PATH变量的路径下去找python可执行文件，先找到哪个就用哪个，因此:前后路径的先后顺序也很重要。
+2. LD_LIBRARY_PATH
+和PATH路径一样，只不过LD_LIBRARY_PATH是设置动态链接库的搜索路径。比如安装了CUDA以后，一般需要设置：
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+
+如果要查看是否设置成功可以使用命令：env | grep PATH 进行确认
+
+最后以上设置的环境变量只在当前terminal的上下文中有效，如果希望全局有效，那么将export命令写入文件: ~/.bashrc，然后执行：source ~/.bashrc 生效或新打开终端
+```
+
+### 编辑文本文件
+
+命令：`vim`
+
+vim的高级使用较复杂，请参考其他文档学习
+
+### 压缩和解压
+
+命令：`zip、unzip、tar`
+
+zip和unzip分别正对与zip的压缩包压缩和解压，tar是Linux另外一种更通用的压缩解压工具
+
+```
+# zip和unzip。如果没有zip请使用apt-get update && apt-get install -y zip安装
+user@host:/tmp/$ zip -r dir.zip test_directory/   # 将test_directory文件夹压缩为dir.zip文件
+user@host:/tmp/$ unzip dir.zip   # 将dir.zip文件解压
+
+# tar. 以下参数c代表压缩，x表示解压，z代表压缩/解压为gz格式的压缩包
+user@host:/tmp/$ tar czf dir.tar.gz test_directory/   # 将test_directory文件夹压缩为dir.tar.gz文件
+user@host:/tmp/$ tar xzf dir.tar.gz   # 将dir.tar.gz文件解压
+
+# tar还可以用于压缩和解压其他格式的压缩文件，比如bz2
+user@host:/tmp/$ tar cjf dir.tar.bz2 test_directory/   # 将test_directory文件夹压缩为dir.tar.bz2文件
+user@host:/tmp/$ tar xjf dir.tar.bz2   # 将dir.tar.bz2文件解压
+```
+
+### 查看GPU信息
+
+命令：`nvidia-smi`
+
+```
+user@host:/tmp/test_directory# nvidia-smi
+Mon Nov  8 11:55:26 2021       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 440.82       Driver Version: 440.82       CUDA Version: 10.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  TITAN X (Pascal)    Off  | 00000000:01:00.0  On |                  N/A |
+| 31%   57C    P0    66W / 250W |    408MiB / 12194MiB |      2%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  TITAN X (Pascal)    Off  | 00000000:04:00.0 Off |                  N/A |
+| 93%   27C    P8    11W / 250W |      2MiB / 12196MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0      1450      G   /usr/lib/xorg/Xorg                            32MiB |
+|    0      2804      G   /usr/lib/xorg/Xorg                           351MiB |
++-----------------------------------------------------------------------------+
+```
+
+```
+Memory-Usage          # 显存的使用情况
+408MiB / 12194MiB     # 前者408MiB代表已使用的显存，后者12194MiB代表总显存
+```
+
+```
+GPU-Util              # GPU的使用率
+2%                    # 使用率百分比
+```
+
+如果需要查看GPU实时占用信息，可以在控制台 -> 容器实例 -> 实例监控中查看。
+
+### 查看/杀死进程
+
+查看进程命令： `ps`
+
+杀死进程命令：`kill`
+
+```
+root@container-5e3e11aeb4-948a17b1:~# ps -ef 
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 14:04 ?        00:00:00 bash /init/boot/boot.sh
+root          58      48  8 14:04 ?        00:00:03 /root/miniconda3/bin/python /root/miniconda3/bin/jupyter-lab --allow-root
+root          60      48  0 14:04 ?        00:00:00 /usr/sbin/sshd -D
+root          61      48 10 14:04 ?        00:00:04 /root/miniconda3/bin/python /root/miniconda3/bin/tensorboard --host 0.0.0.0 --port 6006 --logdir /root/tf-logs
+root         146      61  0 14:04 ?        00:00:00 /root/miniconda3/lib/python3.8/site-packages/tensorboard_data_server/bin/server --logdir=/root/tf-logs
+root         402     338 99 14:05 pts/0    00:00:06 python tensorflow2.x-test.py
+```
+
+从ps的输出结果中根据执行的命令名称找到要杀死的进程，比如最后`python tensorflow2.x-test.py`命令执行的进程ID是402，因此可以：
+
+```
+root@container-5e3e11aeb4-948a17b1:~# kill -9 402
+root@container-5e3e11aeb4-948a17b1:~#
+```
+
+kill后可以再次使用ps -ef确认进程是否已经结束。
+
+### 查看进程的CPU和内存占用
+
+命令：`top`  
+
+或使用平台提供的`实例监控`功能查看更为简便
+
+```
+Tasks:  11 total,   2 running,   9 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  2.3 us,  1.3 sy,  0.0 ni, 96.3 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem : 52801571+total, 45453059+free,  7807904 used, 65677196 buff/cache
+KiB Swap:  2074620 total,  2074620 free,        0 used. 51678192+avail Mem 
+    PID user@host      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND             
+   2316 root      20   0 21.846g 1.796g 244664 R 101.4  0.4   0:05.56 python               
+     58 root      20   0  372352  84804  15540 S   1.4  0.0   0:05.40 jupyter-lab         
+     59 root      20   0  713796  11288   7668 S   1.4  0.0   0:01.31 proxy               
+   2395 root      20   0   45920   3940   3444 R   1.4  0.0   0:00.01 top                 
+      1 root      20   0   25368   3724   3404 S   0.0  0.0   0:00.07 bash                 
+     48 root      20   0   55060  24328   9728 S   0.0  0.0   0:00.33 supervisord         
+     60 root      20   0   72304   5872   5140 S   0.0  0.0   0:00.01 sshd                 
+     61 root      20   0 9756148 315032 156124 S   0.0  0.1   0:04.16 tensorboard         
+    146 root      20   0 1582996   6964   5296 S   0.0  0.0   0:00.04 server               
+    338 root      20   0   25824   4312   3800 S   0.0  0.0   0:00.18 bash                 
+    481 root      20   0   25824   4544   4040 S   0.0  0.0   0:00.18 bash
+```
+
+如果有高负载(CPU使用率高)的情况，那么一般进程都会排在最上边，根据进程名称可以进行确认。那么这个进程占用的CPU可以通过`%CPU`字段读取出来，内存更复杂一些，但是一般看`RES`字段就够了。比如上边第一个Python进程CPU的占用率是`101.4%`，内存使用大小是`1.796g`（Tips：如果内存显示的单位和上述不同，按`e`键切换）
+
+### 重定向日志
+
+命令： `>`
+
+```
+user@host:/tmp# python train.py    # 一般情况下日志会输出到stdout/stderr中
+Epoch.1 Iter 20
+Epoch.1 Iter 40
+Epoch.1 Iter 50
+...
+
+user@host:/tmp# python train.py > ./train.log 2>&1  # 把stdout/stderr中的日志重定向到train.log文件中，最后的2>&1中，2代表stderr, 1代表stdout，&1可以理解成像c语言中的求地址
+
+user@host:/tmp# cat ./train.log    # 将train.log文件中的内容打印在stdout。cat（Concatenate FILE(s) to standard output.）
+Epoch.1 Iter 20
+Epoch.1 Iter 40
+Epoch.1 Iter 50
+...
+
+user@host:/tmp$ python train.py > ./train.log 2>&1 &   # 如果最后再加一个&的效果是后台运行，还可以参考nohup的配合使用
+```
+
+### 场景1
+
+场景：发现程序停止了，但是显存还在占用
+
+一般这种情况是进程假死，看上去停止了但是实际还在。可以通过`ps -ef `查看进程是否还存在，如果存在则用`kill`命令杀死进程，最后用`nvidia-smi`检查显存是否已经释放。
+
+### 场景2
+
+场景：想把实例中的模型/数据保存在文件存储中一份，方便其他实例使用
+
+```
+user@host:~# pwd
+/root/
+user@host:~# ls
+train.py  autodl-tmp  autodl-fs
+user@host:~# cp -r train.py autodl-fs/   # 把 train.py 文件存入文件存储中
+```
+
+### 场景3
+
+场景：发现进程内存会使用超过限制，导致进程被Killed
+
+可以使用Top命令查看进程的占用内存情况，确认内存是不是会停留在一个值而不会一直增长，如果一直增长说明程序对内存的释放有漏洞，可以分析Python代码变量的引用来进行优化。
+
+### 场景4
+
+场景：使用JupyerLab的终端挂守护进程跑训练，担心关闭网页期间的日志看不到了
+
+可以使用重定向日志功能，把日志写入文件。
