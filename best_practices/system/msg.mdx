@@ -4,7 +4,10 @@ icon: "comments"
 ---
 
 *微信对模板消息进行了功能阉割，首行和尾行信息不再可见，详细参考[微信开发者文档](https://developers.weixin.qq.com/community/develop/doc/000a2ae286cdc0f41a8face4c51801?blockType=1)*
-> 严肃声明：消息中不得出现违法和不良信息，否则产生的法律后果由您自己承担！
+
+<Danger>
+  严肃声明：消息中不得出现违法和不良信息，否则产生的法律后果由您自己承担！
+</Danger>
 
 AutoDL为您提供代码自定义发送微信消息通知的功能，使用场景有：
 
@@ -42,8 +45,6 @@ print(resp.content.decode())
 
 如果发送成功，那么您在AutoDL微信公众号中将会收到如下消息：
 
-<Frame>
-  ![image-20220222113006186](/images/best_practices/system/msg/image-20220222113006186.png)
-</Frame>
+![image-20220222113006186](/images/best_practices/system/msg/image-20220222113006186.png)
 
      

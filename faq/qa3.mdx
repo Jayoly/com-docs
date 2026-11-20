@@ -5,9 +5,7 @@ icon: "microchip"
 
 首先使用nvidia-smi命令检查GPU的使用情况
 
-<Frame>
-  ![image-20220606124151522](/images/faq/qa3/image-20220606124151522.png)
-</Frame>
+![image-20220606124151522](/images/faq/qa3/image-20220606124151522.png)
 
 以上红色框标记的分别为显存占用和GPU使用率。如果程序开始运行后:
 
@@ -33,12 +31,10 @@ icon: "microchip"
 
 下图为带cu字样的cuda版本示例。
 
-<Frame>
-  ![image_20250428103959](/images/faq/qa3/image_20250428103959.png)
-</Frame>
+![image_20250428103959](/images/faq/qa3/image_20250428103959.png)
 
 
-2. 显存有占用，GPU占用率不为0，但是波动较大，此时正常使用了GPU，可以优化程序使GPU利用率更高，参考[帮助文档](/perf)
+2. 显存有占用，GPU占用率不为0，但是波动较大，此时正常使用了GPU，可以优化程序使GPU利用率更高，参考[帮助文档](/best_practices/parallel/perf)
 
 3. 显存有占用，但是GPU占用率一直为0。这种case可以分两种，一种安培架构的GPU（30系列的卡、A40、A100、A5000等）需要使用CUDA11.X。另一种case为代码未使用GPU，只不过import框架和构建网络时，框架会分配显存，因此看到的情况就是显存有占用，但是未使用GPU。这种情况可以通过其他代码进行验证：
 

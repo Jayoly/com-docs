@@ -15,9 +15,7 @@ icon: "folder-tree"
 
 进入「控制台」->「文件存储」菜单，初始化对应地区的文件存储。然后在该地区创建实例开机后，将会挂载文件存储至实例`/root/autodl-fs`目录。已经开机的实例重新开关机后自动挂载。
 
-<Frame>
-  ![image_image_20250819111905605](/images/instance/data-storage/fs/image_20250819111905605.png)
-</Frame>
+![image_image_20250819111905605](/images/instance/data-storage/fs/image_20250819111905605.png)
 
 ## 计费规则
 
@@ -42,25 +40,19 @@ icon: "folder-tree"
 
 当网页上传中断或在jupyterlab中删除文件，可能会有缓存/垃圾桶生成，占用文件存储空间。
 
-<Frame>
-  ![image_20250623163726](/images/instance/data-storage/fs/image_20250623163726.png)
-</Frame>
+![image_20250623163726](/images/instance/data-storage/fs/image_20250623163726.png)
 
 #### 解决方法1：
 
 「控制台」->「文件存储」->「展开更多信息」->「清理上传缓存」
 
-<Frame>
-  ![image_20250623163855](/images/instance/data-storage/fs/image_20250623163855.png)
-</Frame>
+![image_20250623163855](/images/instance/data-storage/fs/image_20250623163855.png)
 
 #### 解决方法2：
 
 可以从终端进入/root/autodl-fs，使用ls -alh查看隐藏文件，然后rm彻底删除。
 
-<Frame>
-  ![image_20250328174849](/images/instance/data-storage/fs/image_20250328174849.png)
-</Frame>
+![image_20250328174849](/images/instance/data-storage/fs/image_20250328174849.png)
 
 
 ## 空间足够却报错磁盘已满
@@ -68,9 +60,7 @@ icon: "folder-tree"
 文件存储文件数量（inode）上限是20w，当文件数量（inode）超出20w范围，也会报错磁盘不足。因为小文件严重影响读写速度，建议压缩后存储在文件存储，小文件保存在数据盘中使用。
 「控制台」->「文件存储」->「展开更多信息」可以查看文件数量（inode）使用情况。
 
-<Frame>
-  ![image_20250623165435](/images/instance/data-storage/fs/image_20250623165435.png)
-</Frame>
+![image_20250623165435](/images/instance/data-storage/fs/image_20250623165435.png)
 
 
 ## 数据清理

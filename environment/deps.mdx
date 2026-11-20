@@ -3,10 +3,12 @@ title: "依赖安装"
 icon: "puzzle-piece"
 ---
 
-AutoDL中所有数据在关机后依然保留，包括安装的依赖文件，重启无需再次安装，[保留规则](/instance_data)。
-如果你希望在租用其他主机时也复用依赖环境，那么可以尝试将系统盘中的所有数据保存为镜像或者迁移实例，请参考[保存镜像/加载镜像](/image)、[迁移实例](/migrate_instance)。
+AutoDL中所有数据在关机后依然保留，包括安装的依赖文件，重启无需再次安装，[保留规则](/instance/data-storage/instance_data)。
+如果你希望在租用其他主机时也复用依赖环境，那么可以尝试将系统盘中的所有数据保存为镜像或者迁移实例，请参考[保存镜像/加载镜像](/environment/image)、[迁移实例](/instance/migrate/migrate_instance)。
 
-> 推荐使用国内源加速下载依赖包，但是网络高峰时如果某个源较慢，那么可以切换其他源提高下载速度，参考[软件源](/source)。
+<Tip>
+  推荐使用国内源加速下载依赖包，但是网络高峰时如果某个源较慢，那么可以切换其他源提高下载速度，参考[软件源](/best_practices/tools/source)。
+</Tip>
 
 ## 安装其他版本Python
 
@@ -64,4 +66,4 @@ apt-cache search xxxxx
 
 
 
-CUDA等软件的安装请参考：[文档](/cuda)
+CUDA等软件的安装请参考：[文档](/environment/cuda)

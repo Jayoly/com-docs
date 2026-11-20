@@ -3,11 +3,15 @@ title: "CUDA/cuDNN"
 icon: "microchip"
 ---
 
-> 注意：如果没有二次编译代码的需求，正常情况下不需要单独安装CUDA/cuDNN，因为框架都内置了编译好的CUDA，框架版本和CUDA版本是对应的，只需要关注框架版本即可，无需独立关注CUDA版本。
+<Note>
+  注意：如果没有二次编译代码的需求，正常情况下不需要单独安装CUDA/cuDNN，因为框架都内置了编译好的CUDA，框架版本和CUDA版本是对应的，只需要关注框架版本即可，无需独立关注CUDA版本。
+</Note>
 
 ## 查询默认CUDA/cuDNN版本
 
->  注意：通过nvidia-smi命令查看到的CUDA版本只是驱动支持的最高cuda版本参数，不代表实例中安装的是该版本CUDA。
+<Info>
+  注意：通过nvidia-smi命令查看到的CUDA版本只是驱动支持的最高cuda版本参数，不代表实例中安装的是该版本CUDA。
+</Info>
 
 终端中执行查看默认镜像自带的CUDA版本（安装目录为/usr/local/）：
 
@@ -104,6 +108,6 @@ source ~/.bashrc && ldconfig
 
 
 
-提示：
-
+<Note>
 默认镜像都内置了最原生的CUDA和cuDNN，如果您自己安装了cudatoolkits等，那么一般会默认优先使用conda中安装的cudatoolkits，
+</Note>

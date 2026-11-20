@@ -39,6 +39,13 @@
             ]
           },
           {
+            "group": "充值与发票",
+            "pages": [
+              "guide/expense/price",
+              "guide/expense/invoice"
+            ]
+          },
+          {
             "group": "活动与优惠",
             "pages": [
               "guide/promotions/coupon",
@@ -46,13 +53,6 @@
               "guide/promotions/member",
               "guide/promotions/student",
               "guide/promotions/academic-corporation"
-            ]
-          },
-          {
-            "group": "充值与发票",
-            "pages": [
-              "guide/expense/price",
-              "guide/expense/invoice"
             ]
           },
           {
@@ -98,6 +98,20 @@
             ]
           },
           {
+            "group": "任务执行",
+            "pages": [
+              "instance/execution/daemon",
+              "instance/execution/distributed_training"
+            ]
+          },
+          {
+            "group": "迁移实例",
+            "pages": [
+              "instance/migrate/migrate_instance",
+              "instance/migrate/migrate_instance_2"
+            ]
+          },
+          {
             "group": "数据存储",
             "pages": [
               "instance/data-storage/instance_data",
@@ -113,20 +127,6 @@
               "instance/data-transmission/scp",
               "instance/data-transmission/down",
               "instance/data-transmission/arc"
-            ]
-          },
-          {
-            "group": "任务执行",
-            "pages": [
-              "instance/execution/daemon",
-              "instance/execution/distributed_training"
-            ]
-          },
-          {
-            "group": "迁移实例",
-            "pages": [
-              "instance/migrate/migrate_instance",
-              "instance/migrate/migrate_instance_2"
             ]
           }
         ]
@@ -220,16 +220,16 @@
         "pages": [
           "elastic_deployment/elastic_deploy",
           "elastic_deployment/elastic_deploy_practice",
-          "elastic_deployment/elastic_deploy_update_log",
-          "elastic_deployment/metric_monitor"
+          "elastic_deployment/metric_monitor",
+          "elastic_deployment/elastic_deploy_update_log"
         ]
       },
       {
         "tab": "API",
         "pages": [
           "api/common_api",
-          "api/instance_pro_api",
-          "api/esd_api_doc"
+          "api/esd_api_doc",
+          "api/instance_pro_api"
         ]
       },
       {
@@ -285,15 +285,415 @@
   "redirects": [
     {
       "source": "/quickstart",
-      "destination": "/quick_start"
+      "destination": "/guide/start/quick_start"
     },
     {
       "source": "/docs",
-      "destination": "/"
+      "destination": "/guide/start/index"
+    },
+    {
+      "source": "/docs/index",
+      "destination": "/guide/start/index"
+    },
+    {
+      "source": "/docs/quick_start",
+      "destination": "/guide/start/quick_start"
+    },
+    {
+      "source": "/docs/quickstart",
+      "destination": "/guide/start/quick_start"
+    },
+    {
+      "source": "/docs/video",
+      "destination": "/guide/start/video"
+    },
+    {
+      "source": "/docs/gpu",
+      "destination": "/guide/gpu-selection/gpu"
+    },
+    {
+      "source": "/docs/gpu_perf",
+      "destination": "/guide/gpu-selection/gpu_perf"
+    },
+    {
+      "source": "/docs/network",
+      "destination": "/guide/network/network"
+    },
+    {
+      "source": "/docs/network_turbo",
+      "destination": "/guide/network/network_turbo"
+    },
+    {
+      "source": "/docs/coupon",
+      "destination": "/guide/promotions/coupon"
+    },
+    {
+      "source": "/docs/cp",
+      "destination": "/guide/promotions/cp"
+    },
+    {
+      "source": "/docs/member",
+      "destination": "/guide/promotions/member"
+    },
+    {
+      "source": "/docs/student",
+      "destination": "/guide/promotions/student"
+    },
+    {
+      "source": "/docs/academic-corporation",
+      "destination": "/guide/promotions/academic-corporation"
+    },
+    {
+      "source": "/docs/price",
+      "destination": "/guide/expense/price"
+    },
+    {
+      "source": "/docs/invoice",
+      "destination": "/guide/expense/invoice"
+    },
+    {
+      "source": "/docs/maintenance",
+      "destination": "/guide/maintenance/maintenance"
+    },
+    {
+      "source": "/docs/agreements",
+      "destination": "/guide/agreements/agreements"
+    },
+    {
+      "source": "/docs/nas_agreements",
+      "destination": "/guide/agreements/nas_agreements"
+    },
+    {
+      "source": "/docs/service_agreement",
+      "destination": "/guide/agreements/service_agreement"
+    },
+    {
+      "source": "/docs/real_name_cert",
+      "destination": "/guide/agreements/real_name_cert"
+    },
+    {
+      "source": "/docs/privacy_policy",
+      "destination": "/guide/agreements/privacy_policy"
+    },
+    {
+      "source": "/docs/anti_mining",
+      "destination": "/guide/agreements/anti_mining"
+    },
+    {
+      "source": "/docs/pay_later_agreements",
+      "destination": "/guide/agreements/pay_later_agreements"
+    },
+    {
+      "source": "/docs/env",
+      "destination": "/instance/configuration/env"
+    },
+    {
+      "source": "/docs/update_config",
+      "destination": "/instance/configuration/update_config"
+    },
+    {
+      "source": "/docs/change_billing_method",
+      "destination": "/instance/configuration/change_billing_method"
+    },
+    {
+      "source": "/docs/save_image",
+      "destination": "/instance/configuration/save_image"
+    },
+    {
+      "source": "/docs/reset_instance",
+      "destination": "/instance/configuration/reset_instance"
+    },
+    {
+      "source": "/docs/jupyterlab",
+      "destination": "/instance/connection/jupyterlab"
+    },
+    {
+      "source": "/docs/ssh",
+      "destination": "/instance/connection/ssh"
+    },
+    {
+      "source": "/docs/gui",
+      "destination": "/instance/connection/gui"
+    },
+    {
+      "source": "/docs/port",
+      "destination": "/instance/connection/port"
+    },
+    {
+      "source": "/docs/instance_data",
+      "destination": "/instance/data-storage/instance_data"
+    },
+    {
+      "source": "/docs/netdisk",
+      "destination": "/instance/data-storage/netdisk"
+    },
+    {
+      "source": "/docs/local_disk",
+      "destination": "/instance/data-storage/local_disk"
+    },
+    {
+      "source": "/docs/public_data",
+      "destination": "/instance/data-storage/public_data"
+    },
+    {
+      "source": "/docs/fs",
+      "destination": "/instance/data-storage/fs"
+    },
+    {
+      "source": "/docs/scp",
+      "destination": "/instance/data-transmission/scp"
+    },
+    {
+      "source": "/docs/down",
+      "destination": "/instance/data-transmission/down"
+    },
+    {
+      "source": "/docs/arc",
+      "destination": "/instance/data-transmission/arc"
+    },
+    {
+      "source": "/docs/daemon",
+      "destination": "/instance/execution/daemon"
+    },
+    {
+      "source": "/docs/distributed_training",
+      "destination": "/instance/execution/distributed_training"
+    },
+    {
+      "source": "/docs/migrate_instance",
+      "destination": "/instance/migrate/migrate_instance"
+    },
+    {
+      "source": "/docs/migrate_instance_2",
+      "destination": "/instance/migrate/migrate_instance_2"
+    },
+    {
+      "source": "/docs/instance_pro",
+      "destination": "/pro/instance_pro"
+    },
+    {
+      "source": "/docs/instance_pro_data",
+      "destination": "/pro/pro_data"
+    },
+    {
+      "source": "/docs/base_config",
+      "destination": "/environment/base_config"
+    },
+    {
+      "source": "/docs/deps",
+      "destination": "/environment/deps"
+    },
+    {
+      "source": "/docs/image",
+      "destination": "/environment/image"
+    },
+    {
+      "source": "/docs/python",
+      "destination": "/environment/python"
+    },
+    {
+      "source": "/docs/cuda",
+      "destination": "/environment/cuda"
+    },
+    {
+      "source": "/docs/miniconda",
+      "destination": "/environment/miniconda"
+    },
+    {
+      "source": "/docs/huawei_ascend",
+      "destination": "/local/huawei_ascend"
+    },
+    {
+      "source": "/docs/huawei_mindie",
+      "destination": "/local/huawei_mindie"
+    },
+    {
+      "source": "/docs/mt_gpu",
+      "destination": "/local/mt_gpu"
+    },
+    {
+      "source": "/docs/linux",
+      "destination": "/best_practices/tools/linux"
+    },
+    {
+      "source": "/docs/source",
+      "destination": "/best_practices/tools/source"
+    },
+    {
+      "source": "/docs/git",
+      "destination": "/best_practices/tools/git"
+    },
+    {
+      "source": "/docs/tensorboard",
+      "destination": "/best_practices/tools/tensorboard"
+    },
+    {
+      "source": "/docs/huggingface",
+      "destination": "/best_practices/tools/huggingface"
+    },
+    {
+      "source": "/docs/visdom",
+      "destination": "/best_practices/tools/visdom"
+    },
+    {
+      "source": "/docs/filezilla",
+      "destination": "/best_practices/remote/filezilla"
+    },
+    {
+      "source": "/docs/xshell",
+      "destination": "/best_practices/remote/xshell"
+    },
+    {
+      "source": "/docs/vscode",
+      "destination": "/best_practices/remote/vscode"
+    },
+    {
+      "source": "/docs/pycharm",
+      "destination": "/best_practices/remote/pycharm"
+    },
+    {
+      "source": "/docs/ssh_proxy",
+      "destination": "/best_practices/remote/ssh_proxy"
+    },
+    {
+      "source": "/docs/proxy_in_instance",
+      "destination": "/best_practices/remote/proxy_in_instance"
+    },
+    {
+      "source": "/docs/gromacs",
+      "destination": "/best_practices/ai/gromacs"
+    },
+    {
+      "source": "/docs/katago",
+      "destination": "/best_practices/ai/katago"
+    },
+    {
+      "source": "/docs/rstudio",
+      "destination": "/best_practices/ai/rstudio"
+    },
+    {
+      "source": "/docs/opencl",
+      "destination": "/best_practices/ai/opencl"
+    },
+    {
+      "source": "/docs/vulkan",
+      "destination": "/best_practices/ai/vulkan"
+    },
+    {
+      "source": "/docs/mpi",
+      "destination": "/best_practices/ai/mpi"
+    },
+    {
+      "source": "/docs/perf",
+      "destination": "/best_practices/parallel/perf"
+    },
+    {
+      "source": "/docs/save_money",
+      "destination": "/best_practices/parallel/save_money"
+    },
+    {
+      "source": "/docs/precision",
+      "destination": "/best_practices/system/precision"
+    },
+    {
+      "source": "/docs/msg",
+      "destination": "/best_practices/system/msg"
+    },
+    {
+      "source": "/docs/c_user",
+      "destination": "/best_practices/team/c_user"
+    },
+    {
+      "source": "/docs/elastic_deploy",
+      "destination": "/elastic_deployment/elastic_deploy"
+    },
+    {
+      "source": "/docs/elastic_deploy_practice",
+      "destination": "/elastic_deployment/elastic_deploy_practice"
+    },
+    {
+      "source": "/docs/elastic_deploy_update_log",
+      "destination": "/elastic_deployment/elastic_deploy_update_log"
+    },
+    {
+      "source": "/docs/metric_monitor",
+      "destination": "/elastic_deployment/metric_monitor"
+    },
+    {
+      "source": "/docs/common_api",
+      "destination": "/api/common_api"
+    },
+    {
+      "source": "/docs/instance_pro_api",
+      "destination": "/api/instance_pro_api"
+    },
+    {
+      "source": "/docs/esd_api_doc",
+      "destination": "/api/esd_api_doc"
+    },
+    {
+      "source": "/docs/ai_server",
+      "destination": "/ai_server/ai_server"
+    },
+    {
+      "source": "/docs/ai_server_perf",
+      "destination": "/ai_server/ai_server_perf"
+    },
+    {
+      "source": "/docs/qa",
+      "destination": "/faq/qa"
+    },
+    {
+      "source": "/docs/qa1",
+      "destination": "/faq/qa1"
+    },
+    {
+      "source": "/docs/qa2",
+      "destination": "/faq/qa2"
+    },
+    {
+      "source": "/docs/qa3",
+      "destination": "/faq/qa3"
+    },
+    {
+      "source": "/docs/qa4",
+      "destination": "/faq/qa4"
+    },
+    {
+      "source": "/docs/qa5",
+      "destination": "/faq/qa5"
+    },
+    {
+      "source": "/docs/qa6",
+      "destination": "/faq/qa6"
+    },
+    {
+      "source": "/docs/qa7",
+      "destination": "/faq/qa7"
+    },
+    {
+      "source": "/docs/about",
+      "destination": "/more/about"
+    },
+    {
+      "source": "/docs/academic-corporation-talents",
+      "destination": "/more/academic-corporation-talents"
+    },
+    {
+      "source": "/docs/lb",
+      "destination": "/more/lb"
+    },
+    {
+      "source": "/docs/nas",
+      "destination": "/more/nas"
+    },
+    {
+      "source": "/docs/projector",
+      "destination": "/more/projector"
     },
     {
       "source": "/docs/:slug*",
-      "destination": "/:slug*"
+      "destination": "/guide/start/index"
     }
   ]
 }

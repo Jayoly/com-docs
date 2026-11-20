@@ -4,7 +4,7 @@ icon: "terminal"
 ---
 
 1. 如果您使用VSCode、PyCharm等基于SSH的连接异常时，请按下面的方式排查解决
-2. 如果您在使用XShell、MobaXterm连接异常，请参考[文档](/xshell)，无需继续看下面的解决方法
+2. 如果您在使用XShell、MobaXterm连接异常，请参考[文档](/best_practices/remote/xshell)，无需继续看下面的解决方法
 
 ## 排查与解决
 
@@ -18,15 +18,11 @@ icon: "terminal"
 
 **Step.1** 先排查前两种原因，如果是Windows客户启动栏里搜索`powershell`，如果是Mac用户搜索`terminal`，使用powershell/terminal输入实例的完整SSH指令后回车，如果是连接正常，那么会出现如下信息：
 
-<Frame>
-  ![image-20230317103829777](/images/faq/qa6/image-20230317103829777.png)
-</Frame>
+![image-20230317103829777](/images/faq/qa6/image-20230317103829777.png)
 
 以上均可验证为连接正常，无需进行下一步输入密码。此时您可以查看Step2排查VSCode/PyCharm等原因。如果出现以下错误信息并退出ssh：
 
-<Frame>
-  ![image-20230317113518789](/images/faq/qa6/image-20230317113518789.png)
-</Frame>
+![image-20230317113518789](/images/faq/qa6/image-20230317113518789.png)
 
 以及上述的错误信息可能还有：
 

@@ -4,15 +4,17 @@ icon: "cloud"
 sidebarTitle: "弹性部署API"
 ---
 
-> 新增接口: <a href="/esd_api_doc#_28" style={{ color: "red" }}>设置调度黑名单</a> 和 <a href="/esd_api_doc#gpu" style={{ color: "red" }}>获取地区GPU库存</a>
+<Info>
+  新增接口: <a href="/api/esd_api_doc#_28" style={{ color: "red" }}>设置调度黑名单</a> 和 <a href="/api/esd_api_doc#gpu" style={{ color: "red" }}>获取地区GPU库存</a>
+</Info>
 
-使用弹性部署API需先认证企业。了解弹性部署请参考[文档](/elastic_deploy)
+使用弹性部署API需先认证企业。了解弹性部署请参考[文档](/elastic_deployment/elastic_deploy)
 
 API服务端HOST地址为：`https://api.autodl.com`
 
 ## 鉴权
 
-token获取位置： 控制台 -> 设置 -> 开发者Token
+token获取位置： 「控制台」->「设置」-> 「账号」->[「开发者Token」](https://www.autodl.com/console/center/settings/token)
 
 ```
 headers = {"Authorization": "token"}
@@ -20,7 +22,9 @@ headers = {"Authorization": "token"}
 
 ## 获取镜像
 
-> 镜像为在AutoDL中创建并保存的自定义镜像，创建和保存可通过autodl.com网页完成。暂不支持从外部导入镜像。使用平台提供的基础公共镜像请看文末附录
+<Note>
+  镜像为在AutoDL中创建并保存的自定义镜像，创建和保存可通过autodl.com网页完成。暂不支持从外部导入镜像。使用平台提供的基础公共镜像请看文末附录
+</Note>
 
 ### 请求
 
@@ -104,7 +108,7 @@ print(response.content.decode())
 </Tab>
 </Tabs>
 
-## 创建部署 {#_5}
+## 创建部署
 
 ### 请求
 
@@ -499,7 +503,7 @@ print(response.content.decode())
 </Tab>
 </Tabs>
 
-## 查询容器 {#_13}
+## 查询容器
 
 如果您需要在容器内部获取到容器的UUID，可以通过环境变量`AutoDLContainerUUID`的值获取。
 
@@ -727,7 +731,7 @@ print(response.content.decode())
 </Tab>
 </Tabs>
 
-## 设置副本数量 {#_19}
+## 设置副本数量
 
 ### 请求
 
@@ -915,7 +919,7 @@ print(response.content.decode())
 </Tab>
 </Tabs>
 
-## 设置调度黑名单 {#_28}
+## 设置调度黑名单
 
 如果在调度和使用容器的过程中发现某个容器出现未知异常，那么您可以将此容器所在主机设置为禁止调度状态（该禁止状态默认在24小时后自动解除，您也可以设置此时间），设置后在接下来的时间内不会在该主机上调度任何您的部署
 
@@ -1044,8 +1048,7 @@ print(response.content.decode())
 </Tab>
 </Tabs>
 
-## 获取弹性部署GPU库存 {#gpu}
-
+## 获取弹性部署GPU库存
 ### 请求
 
 POST `/api/v1/dev/machine/region/gpu_stock`
@@ -1066,7 +1069,9 @@ Body中放置请求参数，参数详情如下：
 | price_from       | Int           | 否    | 筛选可调度的价格范围。单位：元 * 1000，如0.1元填写100                              |
 | price_to         | Int           | 否    | 含义同上                                                           |
 
-> 注意：筛选时，GPU数量默认按调度1张卡的情况进行库存筛选。如果查询库存为2卡，可能在两台不同机器上，如果一个容器需要2卡，那么可能无法调度
+<Warning>
+  注意：筛选时，GPU数量默认按调度1张卡的情况进行库存筛选。如果查询库存为2卡，可能在两台不同机器上，如果一个容器需要2卡，那么可能无法调度
+</Warning>
 
 样例：
 

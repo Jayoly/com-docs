@@ -3,7 +3,9 @@ title: "远程桌面"
 icon: "display"
 ---
 
-> 由于远程桌面的配置繁琐以及体验一般，如果您不是强需求，推荐您对代码做相应调整(比如opencv的imshow改为imsave保存图片后浏览)
+<Tip>
+  由于远程桌面的配置繁琐以及体验一般，如果您不是强需求，推荐您对代码做相应调整(比如opencv的imshow改为imsave保存图片后浏览)
+</Tip>
 
 VNC（Virtual Network Computing ）是一种图形化的桌面共享协议，它使用远程帧缓冲协议 (RFB) 来远程控制另一台计算机，它将键盘和鼠标事件从一台计算机传输到另一台计算机，通过网络向另一个方向转发图形屏幕更新。
 对于一般性的GUI程序运行需求，我们其实可以借助VNC在不安装完整桌面环境的情况下方便快捷的实现，下面介绍如何借助turbovnc工具，在实例中运行一个GUI程序并在本地电脑进行显示：
@@ -35,7 +37,7 @@ ps -ef | grep vnc
 
 **Step.2**
 
-以上启动Server时，手动设置了rfbport=6006端口，下面通过SSH隧道将实例中的6006端口代理到本地：[SSH隧道](/ssh_proxy)
+以上启动Server时，手动设置了rfbport=6006端口，下面通过SSH隧道将实例中的6006端口代理到本地：[SSH隧道](/best_practices/remote/ssh_proxy)
 
 完成上述步骤后使用vnc客户端连接，地址请填写：`127.0.0.1:6006`
 
@@ -45,11 +47,9 @@ Ubuntu: https://autodl-public.ks3-cn-beijing.ksyuncs.com/tool/vnc/turbovnc_2.2.5
 MacOS: https://autodl-public.ks3-cn-beijing.ksyuncs.com/tool/vnc/TurboVNC-2.2.5.dmg  
 Windows: https://autodl-public.ks3-cn-beijing.ksyuncs.com/tool/vnc/TurboVNC-2.2.5-x64.exe   
 
-<Frame>
-  ![img](/images/instance/connection/gui/vnc_glxgears_demo.png)
-</Frame>
+![img](/images/instance/connection/gui/vnc_glxgears_demo.png)
 
-**Step.3 **
+**Step.3**
 
 在终端中添加环境变量：`export DISPLAY=:1`，然后再执行您的命令（注意在同一终端执行）
 

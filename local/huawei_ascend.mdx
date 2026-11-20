@@ -3,7 +3,9 @@ title: "华为昇腾NPU"
 icon: "microchip"
 ---
 
-> 注意当前AutoDL上的华为【昇腾910B2x鲲鹏920】 搭载的为ARM系统，因此以前您在X86 CPU机器上构建的镜像无法在此机器上使用
+<Warning>
+  注意当前AutoDL上的华为【昇腾910B2x鲲鹏920】 搭载的为ARM系统，因此以前您在X86 CPU机器上构建的镜像无法在此机器上使用
+</Warning>
 
 ### 使用PyTorch
 
@@ -39,7 +41,7 @@ print(z)
 
 ```bash
 # 下载代码
-wget https://autodl-public.ks3-cn-beijing.ksyuncs.com/npu_chips/huawei/dp_res18_ascend.py
+wget https://autodl-public.ks3-cn-beijing.ksyuncs.com/debug/dp_res18_ascend.py
 
 # 执行代码训练，自动会下载MNIST数据集
 python dp_res18.py
@@ -49,7 +51,7 @@ python dp_res18.py
 
 ```bash
 # 下载代码
-wget https://autodl-public.ks3-cn-beijing.ksyuncs.com/debug/dp_res18_ascend.py
+wget https://autodl-public.ks3-cn-beijing.ksyuncs.com/npu_chips/huawei/dp_res18_ascend.py
 
 # 执行代码训练，自动会下载MNIST数据集
 python dp_res18_ascend.py

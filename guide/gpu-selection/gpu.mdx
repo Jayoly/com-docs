@@ -3,7 +3,9 @@ title: "GPU选型"
 icon: "microchip"
 ---
 
-> 如何排查性能瓶颈参考[文档](/perf)。此外需注意3060、3090、3080Ti、4090、4090D、A4000、A5000、A40、A100、A800、L20、H20、H800等安培架构的卡需要**cuda11.1**及以上才能使用（TitanXp、1080Ti、2080Ti、P40、V100没有要求），请使用较高版本的框架。
+<Warning>
+  如何排查性能瓶颈参考[文档](/best_practices/parallel/perf)。此外需注意3060、3090、3080Ti、4090、4090D、A4000、A5000、A40、A100、A800、L20、H20、H800等安培架构的卡需要**cuda11.1**及以上才能使用（TitanXp、1080Ti、2080Ti、P40、V100没有要求），请使用较高版本的框架。
+</Warning>
 
 AutoDL平台分配GPU、CPU、内存的机制为：按租用的GPU数量成比例分配CPU和内存，算力市场显示的CPU和内存均为每GPU分配的CPU和内存，如果租用两块GPU，那么CPU和内存就x2。此外GPU非共享，每个实例对GPU是独占的。
 
@@ -11,9 +13,7 @@ AutoDL平台分配GPU、CPU、内存的机制为：按租用的GPU数量成比�
 
 CPU非常重要！尽管CPU并不直接参与深度学习模型计算，但CPU需要提供大于模型训练吞吐的数据处理能力。比如，一台8卡NVIDIA V100的DGX服务器，训练ResNet-50 ImageNet图像分类的吞吐就达到8000张图像/秒，而扩展到16卡V100的DGX2服务器却没达到2倍的吞吐，说明这台DGX2服务器的CPU已经成为性能瓶颈了。
 
-<Frame>
-  ![image-20220105174346711](/images/guide/gpu-selection/gpu/image-20220105174346711.png)
-</Frame>
+![image-20220105174346711](/images/guide/gpu-selection/gpu/image-20220105174346711.png)
 
 我们通常为每块GPU分配固定数量的CPU逻辑核心。理想情况下，模型计算吞吐随GPU数量线性增长，单GPU的合理CPU逻辑核心数分配可以直接线性扩展到多GPU上。AutoDL平台的算力实例提供了多种CPU分配规格。每块GPU应配备至少4~8核心的CPU，以满足多线程的异步数据读取。分配更多的核心通常不会再有很大的收益，此时的数据读取瓶颈通常源于Python的多进程切换与数据通信开销（如使用PyTorch DataLoader)。那么怎么省钱克服数据读取瓶颈呢，不妨在AutoDL平台试试C++和CUDA编写的**NVIDIA DALI**数据读取加速库吧。在我们的测试中，单核CPU实例的数据读取能力就超过了基于Python的八核心实例，真正做到了为模型训练保驾护航。
 
@@ -27,7 +27,9 @@ AutoDL机器均为高性能CPU，其中相对来说更高性能的CPU有：
 6. 西北B区 4090和4090D 用到的 AMD EPYC 9654 CPU、AMD EPYC 9754 CPU
 7. L20专区 L20、H20-NVLink 用到的 Xeon(R) Platinum 8457C CPU
 
-> 服务器的CPU一般不如桌面CPU的主频高，但是核心数量多。因此您从以前使用桌面CPU切换到服务器CPU上后，需要充分利用多核心的性能，否则无法发挥服务器CPU的性能。如何利用[请戳](/perf)
+<Tip>
+  服务器的CPU一般不如桌面CPU的主频高，但是核心数量多。因此您从以前使用桌面CPU切换到服务器CPU上后，需要充分利用多核心的性能，否则无法发挥服务器CPU的性能。如何利用[请戳](/best_practices/parallel/perf)
+</Tip>
 
 ## 二. 选择GPU
 

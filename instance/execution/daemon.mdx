@@ -10,21 +10,17 @@ sidebarTitle: "守护进程(开后台)"
 
 1. `screen`，此外还有常用的`tmux`（如需安装执行：`apt-get update && apt-get install -y tmux`）工具，这里不做介绍
 2. `jupyterlab`的终端
-3. 如果你使用的是Notebook，Notebook断网后日志更新问题请参考[JupyterLab](/jupyterlab)文档最下方
+3. 如果你使用的是Notebook，Notebook断网后日志更新问题请参考[JupyterLab](/instance/connection/jupyterlab)文档最下方
 
 ## Jupyterlab
 
 最简单的方式是通过jupyterlab的终端来执行，只要jupyterlab不出现重启（几乎不会），jupyterlab的终端就会一直运行，无论是本地主机断网还是关机。
 
-<Frame>
-  ![image-20220114185358034](/images/instance/execution/daemon/image-20220114185358034.png)
-</Frame>
+![image-20220114185358034](/images/instance/execution/daemon/image-20220114185358034.png)
 
 如果你关闭了这个终端tab，可以在左侧栏中找回
 
-<Frame>
-  ![image-20220118141951621](/images/instance/execution/daemon/image-20220118141951621.png)
-</Frame>
+![image-20220118141951621](/images/instance/execution/daemon/image-20220118141951621.png)
 
 打开时如果终端什么也不显示，按回车键即可。在使用JupyterLab长时间跑代码的过程中**强烈建议**对日志重定向，防止断网后中间的日志没有了。使用方法：
 
@@ -49,9 +45,7 @@ tail -f train.log
 
 此时在这个终端中执行的程序意味着会受到这个会话保护，比如在这里执行命令：
 
-<Frame>
-  ![image-20220114190208175](/images/instance/execution/daemon/image-20220114190208175.png)
-</Frame>
+![image-20220114190208175](/images/instance/execution/daemon/image-20220114190208175.png)
 
 如果使用screen打开终端后中文乱码，执行以下命令后重新进入screen终端：
 
@@ -64,29 +58,21 @@ echo "encoding UTF-8 GBK" >>  ~/.screenrc
 
 在用screen打开的终端中使用快捷键：`ctl + a + d`，会退出到原终端，并且显示detached，意味着这个会话只是离开并未退出。
 
-<Frame>
-  ![image-20220114192146193](/images/instance/execution/daemon/image-20220114192146193.png)
-</Frame>
+![image-20220114192146193](/images/instance/execution/daemon/image-20220114192146193.png)
 
 ### 重进入会话
 
 先找到所有离开的会话：
 
-<Frame>
-  ![image-20220114192511048](/images/instance/execution/daemon/image-20220114192511048.png)
-</Frame>
+![image-20220114192511048](/images/instance/execution/daemon/image-20220114192511048.png)
 
 然后恢复到对应的会话：
 
-<Frame>
-  ![image-20220114192545581](/images/instance/execution/daemon/image-20220114192545581.png)
-</Frame>
+![image-20220114192545581](/images/instance/execution/daemon/image-20220114192545581.png)
 
 执行完以上命令，我们会发现最开始执行的`ping www.baidu.com`仍然在执行。因此就可以将我们的程序放在screen的会话中执行，然后离开会话，等我们需要看日志时再恢复到这个会话中。
 
-<Frame>
-  ![image-20220114192558713](/images/instance/execution/daemon/image-20220114192558713.png)
-</Frame>
+![image-20220114192558713](/images/instance/execution/daemon/image-20220114192558713.png)
 
 ### 退回会话
 
