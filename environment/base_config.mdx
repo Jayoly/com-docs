@@ -3,7 +3,9 @@ title: "概要"
 icon: "sliders"
 ---
 
-> 平台所有镜像的系统版本为Ubuntu，多数为Ubuntu 18.04 ，少数Ubuntu 20.04
+<Note>
+  平台所有镜像的系统版本为Ubuntu，多数为Ubuntu 18.04 ，少数Ubuntu 20.04
+</Note>
 
 平台已经内置了以下框架及版本的镜像，使用该镜像的实例就会自带相应框架软件。如果以下自带的框架版本或Python版本不满足需求，请继续看下方配置其他版本的框架或Python方法。
 
@@ -22,8 +24,8 @@ icon: "sliders"
 | PyTorch      | 2.1.2    | 3.10       | 11.8     |
 | PyTorch      | 2.3.0    | 3.12       | 12.1     |
 | PyTorch      | 2.5.1    | 3.12       | 12.4     |
-| PyTorch      | 2.7.0    | 3.12       | 12.8     |
 | PyTorch      | 2.8.0    | 3.12       | 12.8     |
+| PyTorch      | 2.12.1   | 3.12       | 13.0     |
 | TensorFlow   | 1.15.5   | 3.8        | 11.4     |
 | TensorFlow   | 2.5.0    | 3.8        | 11.2     |
 | TensorFlow   | 2.9.0    | 3.8        | 11.2     |
@@ -45,12 +47,15 @@ icon: "sliders"
 | Gromacs      | 2022.2   | 3.8        | 11.4     |
 | Gromacs      | 2023.2   | 3.10       | 11.8     |
 
-**安装其他版本的Python**： [参考](/python)
+**安装其他版本的Python**： [参考](/environment/python)
 
-**安装其他版本的CUDA**： [参考](/cuda)
+**安装其他版本的CUDA**： [参考](/environment/cuda)
 
 **安装PyTorch**： [参考](https://pytorch.org/get-started/previous-versions/)
-> 使用Torch官方的conda安装命令在国内安装的一般为非cuda版本，而是cpu版本（有bug），因此推荐用pip安装，并且如果使用torch官方pip命令，去掉-f/--index-url参数，这样可以走国内的pip源，速度更快。
+
+<Tip>
+  使用Torch官方的conda安装命令在国内安装的一般为非cuda版本，而是cpu版本（有bug），因此推荐用pip安装，并且如果使用torch官方pip命令，去掉-f/--index-url参数，这样可以走国内的pip源，速度更快。
+</Tip>
 
 **安装TensorFlow**： [参考](https://www.tensorflow.org/install/pip)
 

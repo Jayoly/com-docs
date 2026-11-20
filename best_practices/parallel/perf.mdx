@@ -3,7 +3,9 @@ title: "性能篇"
 icon: "gauge-high"
 ---
 
-> 先使用`nvidia-smi -l 1`命令查看GPU使用率，如果GPU使用率为0优先检查代码是否调用了GPU进行计算。如果GPU使用率已经为90%+，则可以考虑换多卡并行或更高算力的GPU。
+<Tip>
+  先使用`nvidia-smi -l 1`命令查看GPU使用率，如果GPU使用率为0优先检查代码是否调用了GPU进行计算。如果GPU使用率已经为90%+，则可以考虑换多卡并行或更高算力的GPU。
+</Tip>
 
 发现训练速度明显很慢时，可以先用以下代码进行压测排除硬件问题，观察GPU的使用率：
 
@@ -28,7 +30,9 @@ torch.cuda.synchronize("cuda:0")
 
 对于以上1和2两种情况，优化余地较小，更适合从选择主机下手配合代码优化，提高经济性。对于3和4如果发现GPU利用率较低时可以按下述方法排查瓶颈，优化性能。
 
-> 如果GPU始终没有利用率，请确认：3060、3090、3080Ti、4090、4090D、A4000、A5000、A40、A100、A800、L20、H20、H800等安培架构的卡需要**cuda11.x**才能使用（最好cuda11.1及以上），请使用较高版本的框架。
+<Warning>
+  如果GPU始终没有利用率，请确认：3060、3090、3080Ti、4090、4090D、A4000、A5000、A40、A100、A800、L20、H20、H800等安培架构的卡需要**cuda11.x**才能使用（最好cuda11.1及以上），请使用较高版本的框架。
+</Warning>
 
 **Step.1 查看GPU的利用率**
 
@@ -67,9 +71,7 @@ Mon Nov  8 11:55:26 2021
 
 请在控制台 -> 容器实例中找到实例监控按钮。
 
-<Frame>
-  ![image_20250415165651](/images/best_practices/parallel/perf/image_20250415165651.png)
-</Frame>
+![image_20250415165651](/images/best_practices/parallel/perf/image_20250415165651.png)
 
 查看CPU的使用：
 
@@ -89,23 +91,21 @@ Mon Nov  8 11:55:26 2021
 
 ### NumPy版本问题
 
-> 初步鉴别方法：CPU负载非常高，所有核心跑满，并且升配更多核心后依然轻松跑满CPU，而GPU的负载一直较低。而且使用的是INTEL的CPU，那么有比较大的可能性是NumPy版本问题导致的性能问题。
+<Info>
+  初步鉴别方法：CPU负载非常高，所有核心跑满，并且升配更多核心后依然轻松跑满CPU，而GPU的负载一直较低。而且使用的是INTEL的CPU，那么有比较大的可能性是NumPy版本问题导致的性能问题。
+</Info>
 
 NumPy会使用OpenBlas或MKL做计算加速。Intel的CPU支持MKL，AMD CPU仅支持OpenBlas。如果使用Intel的CPU，MKL会比OpenBlas有几倍的性能提升（部分矩阵计算），对最终的性能影响非常大。一般来说AMD CPU使用OpenBlas会比Intel的CPU使用OpenBlas更快，因此不用过份担心AMD CPU使用OpenBlas的性能差。
 
 如果您在使用Intel CPU，先验证自己使用的NumPy是MKL还是OpenBlas版本。
 
-<Frame>
-  ![image-20220507151551096](/images/best_practices/parallel/perf/image-20220507151551096.png)
-</Frame>
+![image-20220507151551096](/images/best_practices/parallel/perf/image-20220507151551096.png)
 
 有以上mkl字样代表是MKL的版本。
 
 在使用清华等国内的Conda源时，安装NumPy时默认会使用OpenBlas的加速方案，您使用`conda install numpy`安装时会发现如下OpenBlas相关的包：
 
-<Frame>
-  ![image-20220415135533064](/images/best_practices/parallel/perf/image-20220415135533064.png)
-</Frame>
+![image-20220415135533064](/images/best_practices/parallel/perf/image-20220415135533064.png)
 
 所以为了安装MKL的NumPy，解决方法如下：
 
@@ -120,13 +120,13 @@ conda install numpy
 
 如果以上步骤正确，那么在install numpy时将会看到：
 
-<Frame>
-  ![image-20220415135910439](/images/best_practices/parallel/perf/image-20220415135910439.png)
-</Frame>
+![image-20220415135910439](/images/best_practices/parallel/perf/image-20220415135910439.png)
 
 ### PyTorch线程数问题
 
-> 初步鉴别方法：如果租用了多卡实例，并且每块卡跑不同的实验，那么可能是该问题
+<Info>
+  初步鉴别方法：如果租用了多卡实例，并且每块卡跑不同的实验，那么可能是该问题
+</Info>
 
 由于默认情况下，PyTorch会创建与核数相同的线程数做相关的计算。如果在同实例中租多卡GPU，且不同GPU分别跑多个实验时，每个PyTorch进程都会默认创建与核数相同的线程数，导致系统大量时间陷入线程调度而非计算，计算速度大幅减慢，CPU与GPU利用率都很低。此时可以使用代码`torch.set_num_threads(N)`设置单个进程所开启的线程数解决该问题。
 

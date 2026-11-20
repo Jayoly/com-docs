@@ -3,7 +3,9 @@ title: "性能指标监控"
 icon: "chart-line"
 ---
 
-> 仅企业认证后的账号可用
+<Note>
+  仅企业认证后的账号可用
+</Note>
 
 ### 方式一：容器内API主动获取
 
@@ -33,14 +35,10 @@ if response.status_code == 200 and "success" in content:
 
 配置并开启推送监控数据到Prometheus
 
-<Frame>
-  ![](/images/elastic_deployment/metric_monitor/2025-06-24-16-06-17-image.png)
-</Frame>
+![](/images/elastic_deployment/metric_monitor/2025-06-24-16-06-17-image.png)
 
 开启后新创建/重启的容器将会开始推送Metric数据
 
-<Frame>
-  ![](/images/elastic_deployment/metric_monitor/2025-06-24-16-13-50-image.png)
-</Frame>
+![](/images/elastic_deployment/metric_monitor/2025-06-24-16-13-50-image.png)
 
 如何可视化这些Metric数据请使用Grafana等做进一步配置

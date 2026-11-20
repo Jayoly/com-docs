@@ -14,13 +14,13 @@ sidebarTitle: "公网网盘(强推)"
 
 1. 需要额外配置授权算一个缺点 :)
 
-> 数据安全：AutoDL通过您设置的独立密码对个人信息进行加密，加密后的个人信息只有通过您的密码才能解密，包括AutoDL也无法解密。详细实现方法请看文档最下方。
+<Info>
+  数据安全：AutoDL通过您设置的独立密码对个人信息进行加密，加密后的个人信息只有通过您的密码才能解密，包括AutoDL也无法解密。详细实现方法请看文档最下方。
+</Info>
 
 AutoDL中公网网盘的实现可看作三方网盘客户端（叫做`AutoPanel`），和官方客户端的不同有：该工具为Server/Brower架构（类比JupyterLab理解，Server可以不在本地电脑，但可以在本地浏览器使用）。架构如下：
 
-<Frame>
-  ![image-20220325102905470](/images/instance/data-storage/netdisk/image-20220325102905470.png)
-</Frame>
+![image-20220325102905470](/images/instance/data-storage/netdisk/image-20220325102905470.png)
 
 从图中可以看出：与官方客户端不同，**AutoPanel的Server启动在哪台主机，那么就由该主机和网盘发生上传下载交互，和浏览器所在主机无关**。因此您可以更灵活的将AutoPanel的Server启动在本地电脑、AutoDL的实例(已默认启动)、或其他您自己的服务器当中，然后通过Server提供的访问地址在浏览器完成操作。
 
@@ -30,72 +30,62 @@ AutoDL中公网网盘的实现可看作三方网盘客户端（叫做`AutoPanel`
 
 租用实例开机后，在快捷工具一列找到「AutoPanel」入口，点击进入后打开「公网网盘」。
 
-<Frame>
-  ![image_20250328104642](/images/instance/data-storage/netdisk/image_20250328104642.png)
-</Frame>
+![image_20250328104642](/images/instance/data-storage/netdisk/image_20250328104642.png)
 
 ### Step.2：授权
 
 第一步需要设置独立访问密码，该密码非常重要（更复杂更安全），您接下来授权的网盘个人账户信息均通过该密码进行加密。如**忘记密码**则需重新初始化。
 
-<Frame>
-  ![image_20250325153411](/images/instance/data-storage/netdisk/image_20250325153411.png)
-</Frame>
+![image_20250325153411](/images/instance/data-storage/netdisk/image_20250325153411.png)
 
 
-> 通过您设置的独立密码加密后的个人信息只有通过您的密码才能解密，包括AutoDL也无法解密。
+<Note>
+  通过您设置的独立密码加密后的个人信息只有通过您的密码才能解密，包括AutoDL也无法解密。
+</Note>
 
 #### 阿里云盘
 
-> **阿里云盘在2024年7月左右对三方应用进行了限制，需要购买三方权益包才能获得良好的上传下载速度，具体请参考<a href="https://zhp3k52owb.feishu.cn/wiki/Uv5Lw1mfsij1cHkLxWYcYWJonIt?from=from_copylink" target="_blank">文档</a>，请根据自己的需求使用阿里云盘。**
+<Warning>
+  **阿里云盘在2024年7月左右对三方应用进行了限制，需要购买三方权益包才能获得良好的上传下载速度，具体请参考<a href="https://zhp3k52owb.feishu.cn/wiki/Uv5Lw1mfsij1cHkLxWYcYWJonIt?from=from_copylink" target="_blank">文档</a>，请根据自己的需求使用阿里云盘。**
+</Warning>
 
 选择阿里云盘，然后使用阿里云盘的APP扫码授权登录。
 
-<Frame>
-  ![image_20250328112239](/images/instance/data-storage/netdisk/image_20250328112239.png)
-</Frame>
+![image_20250328112239](/images/instance/data-storage/netdisk/image_20250328112239.png)
 
 #### 夸克网盘
 
-> **夸克网盘需要购买会员才能获得良好的上传下载速度，请自行在夸克网盘中购买。**
+<Warning>
+  **夸克网盘需要购买会员才能获得良好的上传下载速度，请自行在夸克网盘中购买。**
+</Warning>
 
 浏览器登录[夸克网盘](https://pan.quark.cn/)网页版本，按F12打开浏览器“调试”，选中“Network”，随意在左侧选择请求，找到携带 Cookie 参数复制填写对应位置。
 
-<Frame>
-  ![image_20250427162520](/images/instance/data-storage/netdisk/image_20250427162520.png)
-</Frame>
+![image_20250427162520](/images/instance/data-storage/netdisk/image_20250427162520.png)
 
-<Frame>
-  ![image_20250328113215](/images/instance/data-storage/netdisk/image_20250328113215.png)
-</Frame>
+![image_20250328113215](/images/instance/data-storage/netdisk/image_20250328113215.png)
 
 #### 百度网盘
 
-> **百度网盘由于规则调整，不再支持个人认证及个人创建应用功能，需要企业认证才可开通应用，因此不再推荐使用百度网盘。**
+<Warning>
+  **百度网盘由于规则调整，不再支持个人认证及个人创建应用功能，需要企业认证才可开通应用，因此不再推荐使用百度网盘。**
+</Warning>
 
 登录<a href="https://pan.baidu.com" target="_blank">百度网盘</a>后，<a href="https://pan.baidu.com/union/console/applist?from=person" target="_blank">创建应用</a>（如果您没有进行过百度的认证可能创建失败，需先完成[认证](https://pan.baidu.com/union/apply?)），创建完成后获取AppKey和SecretKey。以下应用名称推荐填写AutoDL，以免不必要的麻烦。
 
-<Frame>
-  ![image-20220329182233629](/images/instance/data-storage/netdisk/image-20220329182233629.png)
-</Frame>
+![image-20220329182233629](/images/instance/data-storage/netdisk/image-20220329182233629.png)
 
-<Frame>
-  ![image-20220322114614815](/images/instance/data-storage/netdisk/image-20220322114614815.png)
-</Frame>
+![image-20220322114614815](/images/instance/data-storage/netdisk/image-20220322114614815.png)
 
 在AutoPanel点击添加授权，输入AppKey和SecretKey后，点击获取Access Token将打开百度网盘的网页，将其返回的Token粘贴过来即可完成授权。
 
-<Frame>
-  ![image_20250328114909](/images/instance/data-storage/netdisk/image_20250328114909.png)
-</Frame>
+![image_20250328114909](/images/instance/data-storage/netdisk/image_20250328114909.png)
 
 #### OSS对象存储
 
 支持MinIO、阿里云OSS、腾讯云OSS和兼容S3协议的OSS。
 
-<Frame>
-  ![image_20250328114715](/images/instance/data-storage/netdisk/image_20250328114715.png)
-</Frame>
+![image_20250328114715](/images/instance/data-storage/netdisk/image_20250328114715.png)
 
 **如果您使用阿里云OSS**，那么Address、Bucket、Region参数举例：
 Address：oss-cn-beijing.aliyuncs.com  (注意地址中不要包含桶的信息)
@@ -113,25 +103,21 @@ Bucket: test-bucket
 
 ### Step.3：文件浏览/上传/下载
 
-> 如果是超过10GB以上的大文件在上传时可能需要花几十秒到几分钟不等的时间计算文件Hash值，计算完成后才会开始上传。另外计算Hash值的效率与cpu/内存相关，如果使用了**无卡模式**，该过程会更慢。请耐心等待～
+<Note>
+  如果是超过10GB以上的大文件在上传时可能需要花几十秒到几分钟不等的时间计算文件Hash值，计算完成后才会开始上传。另外计算Hash值的效率与cpu/内存相关，如果使用了**无卡模式**，该过程会更慢。请耐心等待～
+</Note>
 
 选中网盘后可以浏览网盘中的文件，点击下载可以下载至本地（实例中）。固定下载到实例/root/autodl-tmp下，下载完成后可以自行移动。
 
-<Frame>
-  ![image_20250328145600](/images/instance/data-storage/netdisk/image_20250328145600.png)
-</Frame>
+![image_20250328145600](/images/instance/data-storage/netdisk/image_20250328145600.png)
 
 点击上传按钮则可以上传本地（实例中）的文件至网盘。
 
-<Frame>
-  ![image_20250328145721](/images/instance/data-storage/netdisk/image_20250328145721.png)
-</Frame>
+![image_20250328145721](/images/instance/data-storage/netdisk/image_20250328145721.png)
 
 同时可存在多个上传和下载文件任务，他们将排队进行上传下载，在右侧「传输任务」中可查看。
 
-<Frame>
-  ![image_20250328145757](/images/instance/data-storage/netdisk/image_20250328145757.png)
-</Frame>
+![image_20250328145757](/images/instance/data-storage/netdisk/image_20250328145757.png)
 
 ## 功能说明
 
@@ -165,9 +151,7 @@ Bucket: test-bucket
 
 上述授权过程需要在每个新创建的实例中重复添加，如果您希望只需添加授权一次，后续创建的实例均自动使用该授权，那么可以在「控制台」的「设置」菜单下托管授权信息到AutoDL，由AutoDL帮您完成添加授权：
 
-<Frame>
-  ![image_20250328154616](/images/instance/data-storage/netdisk/image_20250328154616.png)
-</Frame>
+![image_20250328154616](/images/instance/data-storage/netdisk/image_20250328154616.png)
 
 ## 安全
 
@@ -186,5 +170,7 @@ AutoPanel的安全设计目标是：即使最糟糕的情况其他人拿走了�
 
 关于AES：
 
-> AES is available in many different encryption packages, and is the first (and only) publicly accessible cipher approved by the U.S. National Security Agency (NSA) for top secret information when used in an NSA approved cryptographic module (see Security of AES, below).
-> [WIKI](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
+<Note>
+  AES is available in many different encryption packages, and is the first (and only) publicly accessible cipher approved by the U.S. National Security Agency (NSA) for top secret information when used in an NSA approved cryptographic module (see Security of AES, below).
+  [WIKI](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard)
+</Note>

@@ -9,7 +9,9 @@ icon: "chart-column"
 
 2. 在**本地电脑**的终端中执行命令：`ssh -CNgv -L 8097:127.0.0.1:8097 root@region-1.autodl.com -p 37881`。其中`8097:127.0.0.1:8097`是指代理Visdom Server的8097端口到本地的8097端口，`root@region-1.autodl.com`和`37881`分别是实例中SSH指令的访问地址与端口，请进行相应替换。
 
-   > 注意：执行完上面这条ssh命令，没有任何日志是正常的，只要没有要求重新输入密码或退出。
+   <Note>
+     注意：执行完上面这条ssh命令，没有任何日志是正常的，只要没有要求重新输入密码或退出。
+   </Note>
 
    ![image-20221117105400658](/images/best_practices/tools/visdom/image-20221117105400658.png)
 
@@ -21,9 +23,7 @@ icon: "chart-column"
 
 开机实例，找到「自定义服务」入口
 
-<Frame>
-  ![image-20220401155740569](/images/best_practices/tools/visdom/image-20220401155740569.png)
-</Frame>
+![image-20220401155740569](/images/best_practices/tools/visdom/image-20220401155740569.png)
 
 从提示可看出，我们只需将Visdom启动在6006端口即可从「自定义服务」入口访问：
 
@@ -44,6 +44,4 @@ vis = Visdom(server='http://localhost', port='6006', env='main')
 
 启动后在本地浏览器访问自定义服务
 
-<Frame>
-  ![image-20220401160337985](/images/best_practices/tools/visdom/image-20220401160337985.png)
-</Frame>
+![image-20220401160337985](/images/best_practices/tools/visdom/image-20220401160337985.png)

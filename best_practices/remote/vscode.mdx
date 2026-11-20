@@ -4,7 +4,9 @@ icon: "laptop-code"
 sidebarTitle: "VSCode"
 ---
 
->   警告：如果使用VSCode直接执行或开终端执行训练程序，请在调试完成后最后通过screen/tmux工具开守护进程（参考文档：[守护进程](/daemon)），确保程序不受SSH连接中断影响程序执行！
+<Warning>
+  警告：如果使用VSCode直接执行或开终端执行训练程序，请在调试完成后最后通过screen/tmux工具开守护进程（参考文档：[守护进程](/instance/execution/daemon)），确保程序不受SSH连接中断影响程序执行！
+</Warning>
 
 官方文档：[请戳](https://code.visualstudio.com/docs/remote/ssh-tutorial)
 
@@ -19,9 +21,7 @@ AutoDL使用方法：
 
 获取SSH登录信息
 
-<Frame>
-  ![image-20210916195423472](/images/best_practices/remote/vscode/image-20210916195423472.png)
-</Frame>
+![image-20210916195423472](/images/best_practices/remote/vscode/image-20210916195423472.png)
 
 ## 2.本地VSCode配置Remote-SSH
 
@@ -29,52 +29,38 @@ AutoDL使用方法：
 
 打开您本地的VSCode开发插件菜单，在扩展程序中搜素`Remote-SSH`并安装
 
-<Frame>
-  ![image-20210916200211959](/images/best_practices/remote/vscode/image-20210916200211959.png)
-</Frame>
+![image-20210916200211959](/images/best_practices/remote/vscode/image-20210916200211959.png)
 
 ## 3.SSH连接并登录您远端租用的实例
 
 按照图示进行点击，完成添加SSH主机
 
-<Frame>
-  ![image-20210916200538203](/images/best_practices/remote/vscode/image-20210916200538203.png)
-</Frame>
+![image-20210916200538203](/images/best_practices/remote/vscode/image-20210916200538203.png)
 
-<Frame>
-  ![image-20210916200742778](/images/best_practices/remote/vscode/image-20210916200742778.png)
-</Frame>
+![image-20210916200742778](/images/best_practices/remote/vscode/image-20210916200742778.png)
 
 获取并复制您实例的SSH登录信息
 
 图示以`ssh -p 38909 root@region-1.autodl.com`为例。回车键继续操作，**注意，如果这个ssh命令的最后有空格，请删除空格，否则可能无法登录**
 
-<Frame>
-  ![image-20210916201832127](/images/best_practices/remote/vscode/image-20210916201832127.png)
-</Frame>
+![image-20210916201832127](/images/best_practices/remote/vscode/image-20210916201832127.png)
 
-回车后会弹出以下自定义SSH config 文件的弹窗，不需要选择直接回车即可。马上可能会弹出选择远程服务器是`Windows`、`Linux`和`Mac`系统的选项，请选择**`Linux`**
+回车后会弹出以下自定义SSH config 文件的弹窗，不需要选择直接回车即可。马上可能会弹出选择远程服务器是`Windows`、`Linux`和`Mac`系统的选项，请选择`Linux`
 
-<Frame>
-  ![image-20220120120528330](/images/best_practices/remote/vscode/image-20220120120528330.png)
-</Frame>
+![image-20220120120528330](/images/best_practices/remote/vscode/image-20220120120528330.png)
 
-<Frame>
-  ![image-20210916202041401](/images/best_practices/remote/vscode/image-20210916202041401.png)
-</Frame>
+![image-20210916202041401](/images/best_practices/remote/vscode/image-20210916202041401.png)
 
 输入密码，等待SSH登录完成。
 
-<Frame>
-  ![image-20210916202253038](/images/best_practices/remote/vscode/image-20210916202253038.png)
-</Frame>
+![image-20210916202253038](/images/best_practices/remote/vscode/image-20210916202253038.png)
 
 ## 4.选择您的代码目录
 
-图示代码已经上传到实例`/`目录中。如您还为上传资源，您可以参考[SCP远程拷贝文件](/scp)或[JupyterLab](/jupyterlab)章节内容上传代码
+图示代码已经上传到实例`/`目录中。如您还为上传资源，您可以参考[SCP远程拷贝文件](/instance/data-transmission/scp)或[JupyterLab](/instance/connection/jupyterlab)章节内容上传代码
 
-<Frame>
-  ![image-20210916202626025](/images/best_practices/remote/vscode/image-20210916202626025.png)
-</Frame>
+![image-20210916202626025](/images/best_practices/remote/vscode/image-20210916202626025.png)
 
-**建议：** **您在使用VSCode开发代码时，可根据开发语言配置相应的解释器。**
+<Tip>
+建议：您在使用VSCode开发代码时，可根据开发语言配置相应的解释器。
+</Tip>
