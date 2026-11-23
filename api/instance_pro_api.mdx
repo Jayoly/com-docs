@@ -355,11 +355,16 @@ POST `/api/v1/dev/instance/pro/image/private/list`
 | 3090-48G    | 通用型         | v-48g-350w    |
 | 5090-32G    | 性能型         | 5090-p        |
 | 4090D       | 通用型         | 4090D         |
+| PRO5000-72G | RTX PRO 5000  | pro5000       |
 
 2.公共基础镜像UUID
 
 | 镜像UUID                | 框架         | 镜像                                                 |
 | --------------------- | ---------- | -------------------------------------------------- |
+| base-image-ee43618uo7 | PyTorch    | cuda13.0-ubuntu22.04-py3.12-torch2.12.1            |
+| base-image-ec1e9vdbd3 | PyTorch    | cuda12.8-ubuntu22.04-py3.12-torch2.8.0             |
+| base-image-321232d5d4 | PyTorch    | cuda12.1-ubuntu22.04-py3.12-torch2.3.0             |
+| base-image-323d32u534 | PyTorch    | cuda12.1-ubuntu22.04-py3.10-torch2.1.0             |
 | base-image-12be412037 | PyTorch    | cuda11.1-cudnn8-devel-ubuntu18.04-py38-torch1.9.0  |
 | base-image-u9r24vthlk | PyTorch    | cuda11.3-cudnn8-devel-ubuntu20.04-py38-torch1.10.0 |
 | base-image-l374uiucui | PyTorch    | cuda11.3-cudnn8-devel-ubuntu20.04-py38-torch1.11.0 |
@@ -367,13 +372,16 @@ POST `/api/v1/dev/instance/pro/image/private/list`
 | base-image-0gxqmciyth | TensorFlow | cuda11.2-cudnn8-devel-ubuntu18.04-py38-tf2.5.0     |
 | base-image-uxeklgirir | TensorFlow | cuda11.2-cudnn8-devel-ubuntu20.04-py38-tf2.9.0     |
 | base-image-4bpg0tt88l | TensorFlow | cuda11.4-py38-tf1.15.5                             |
+| base-image-8hkyyugih5 | Miniconda  | cuda11.8-ubuntu22.04-py3.10                        |
 | base-image-mbr2n4urrc | Miniconda  | cuda11.6-cudnn8-devel-ubuntu20.04-py38             |
 | base-image-qkkhitpik5 | Miniconda  | cuda10.2-cudnn7-devel-ubuntu18.04-py38             |
 | base-image-h041hn36yt | Miniconda  | cuda11.1-cudnn8-devel-ubuntu18.04-py38             |
 | base-image-7bn8iqhkb5 | Miniconda  | cudagl11.3-cudnn8-devel-ubuntu20.04-py38           |
 | base-image-k0vep6kyq8 | Miniconda  | cuda9.0-cudnn7-devel-ubuntu16.04-py36              |
+| base-image-l2193iu12k | TensorRT   | cuda11.8-ubuntu20.04-py38-trt8.6.1                 |
 | base-image-l2843iu23k | TensorRT   | cuda11.8-cudnn8-devel-ubuntu20.04-py38-trt8.5.1    |
 | base-image-l2t43iu6uk | TensorRT   | cuda11.8-cudnn8-devel-ubuntu20.04-py38-torch2.0.0  |
+| base-image-ccde9ed4d3 | tritonserver | cuda12.6-ubuntu24.04-py3.12-tritonserver24.12      |
 | ...                   | ...        | 更多新上线的镜像请联系客服                                      |
 
 **
